@@ -109,7 +109,7 @@ const LandingPage = () => {
             </div>
             <div className="md:w-1/2 mt-8 md:mt-0">
               <div className="bg-zinc-200 bg-opacity-30 border border-zinc-300 border-opacity-50 rounded-xl h-64 md:h-80 w-full flex items-center justify-center">
-                <p className="text-zinc-100">Hero Image Placeholder</p>
+                <p className="text-zinc-900">Hero Image Placeholder</p>
               </div>
             </div>
           </div>
