@@ -10,6 +10,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import router from "@/router";
 
 export function NavMain({
   items,
@@ -45,7 +46,7 @@ export function NavMain({
         <SidebarMenu>
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton tooltip={item.title}>
+              <SidebarMenuButton tooltip={item.title} onClick={() => router.navigate(item.url, { replace: true })}>
                 {item.icon && <item.icon />}
                 <span>{item.title}</span>
               </SidebarMenuButton>

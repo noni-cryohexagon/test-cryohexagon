@@ -43,25 +43,25 @@ const data = {
       icon: LayoutDashboardIcon,
     },
     {
-      title: "Lifecycle",
-      url: "#",
+      title: "Main Flow",
+      url: "/main-flow",
       icon: ListIcon,
     },
-    {
-      title: "Analytics",
-      url: "#",
-      icon: BarChartIcon,
-    },
-    {
-      title: "Projects",
-      url: "#",
-      icon: FolderIcon,
-    },
-    {
-      title: "Team",
-      url: "#",
-      icon: UsersIcon,
-    },
+    // {
+    //   title: "Analytics",
+    //   url: "#",
+    //   icon: BarChartIcon,
+    // },
+    // {
+    //   title: "Projects",
+    //   url: "#",
+    //   icon: FolderIcon,
+    // },
+    // {
+    //   title: "Team",
+    //   url: "#",
+    //   icon: UsersIcon,
+    // },
   ],
   navClouds: [
     {
