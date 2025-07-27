@@ -1,7 +1,7 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { flexRender, getCoreRowModel, useReactTable, createColumnHelper } from "@tanstack/react-table";
 import { Avatar } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
+import SampleBadge from "./SampleBadge";
 
 // Define the patient data type based on the image
 export type Patient = {
@@ -21,6 +21,13 @@ export default function CasesTable({ items }: { items: Patient[] }) {
   // Create column helper
   const columnHelper = createColumnHelper<Patient>();
 
+  const getSimpleCellValue = (accessorId: keyof Patient, label: string) => {
+    return columnHelper.accessor(accessorId, {
+      header: label,
+      cell: (info) => info.getValue(),
+    });
+  };
+
   // Define columns
   const columns = [
     columnHelper.accessor("name", {
@@ -34,18 +41,9 @@ export default function CasesTable({ items }: { items: Patient[] }) {
         </div>
       ),
     }),
-    columnHelper.accessor("id", {
-      header: "ID",
-      cell: (info) => info.getValue(),
-    }),
-    columnHelper.accessor("case_no", {
-      header: "Case No.",
-      cell: (info) => info.getValue(),
-    }),
-    columnHelper.accessor("cpu_sc", {
-      header: "CPU / SC",
-      cell: (info) => info.getValue(),
-    }),
+    getSimpleCellValue("id", "ID"),
+    getSimpleCellValue("case_no", "Case No."),
+    getSimpleCellValue("cpu_sc", "CPU / SC"),
     columnHelper.accessor("partner", {
       header: "Partner",
       cell: (info) => {
@@ -62,31 +60,16 @@ export default function CasesTable({ items }: { items: Patient[] }) {
         );
       },
     }),
-    columnHelper.accessor("timer", {
-      header: "Timer",
-      cell: (info) => info.getValue(),
-    }),
+    getSimpleCellValue("timer", "Timer"),
     columnHelper.accessor("embryos", {
       header: "Batches",
       cell: (info) => {
         const { embryos, oocytes, moreCount } = info.row.original;
         return (
           <div className="flex items-center gap-2">
-            {embryos > 0 && (
-              <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">
-                <span className="mr-1">🥚</span> {embryos} embryo
-              </Badge>
-            )}
-            {oocytes > 0 && (
-              <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
-                <span className="mr-1">🔵</span> {oocytes} oocytes
-              </Badge>
-            )}
-            {moreCount > 0 && (
-              <Badge variant="outline" className="bg-gray-50 text-gray-700 border-gray-200">
-                {moreCount} more...
-              </Badge>
-            )}
+            {embryos > 0 && <SampleBadge sample={`${embryos}`} color="yellow" />}
+            {oocytes > 0 && <SampleBadge sample={`${oocytes}`} color="blue" />}
+            {moreCount > 0 && <SampleBadge sample={`${moreCount}`} color="gray" />}
           </div>
         );
       },

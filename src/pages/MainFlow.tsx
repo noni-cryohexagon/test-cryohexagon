@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useSession } from "../context/SessionContext";
 
 import { useCases } from "@/db/cases/hooks";
-import CasesTable, { Patient } from "@/components/CasesTable";
+import CasesTable, { Patient } from "@/components/CasesTable/CasesTable";
 
 import MainFlowAccordion, { AccordionItemType } from "@/components/MainFlowAccordion";
 
