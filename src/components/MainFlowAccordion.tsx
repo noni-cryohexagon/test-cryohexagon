@@ -18,7 +18,12 @@ export default function MainFlowAccordion<T>({ items }: CasesTableProps<T>) {
       {items.map((itemObj) => (
         <div className="w-full flex flex-col border rounded-md mb-4" key={itemObj.id}>
           <AccordionItem key={itemObj.id} value={`item-${itemObj.id}`}>
-            <AccordionTrigger className="p-8 text-xl font-light ">{itemObj.title}</AccordionTrigger>
+            <AccordionTrigger className="p-8 text-xl font-light ">
+              <div>
+                <span className="text-gray-500">{itemObj.totalCount}</span>&nbsp;&nbsp;&nbsp;
+                {itemObj.title}
+              </div>
+            </AccordionTrigger>
             <AccordionContent className="px-14">
               <itemObj.ContentComponent item={itemObj.item} />
             </AccordionContent>

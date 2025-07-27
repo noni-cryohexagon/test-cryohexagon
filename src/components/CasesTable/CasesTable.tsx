@@ -37,7 +37,7 @@ export default function CasesTable({ items }: { items: Patient[] }) {
           <Avatar className="h-8 w-8 rounded-full">
             <img src={info.row.original.avatar} alt={info.getValue()} />
           </Avatar>
-          <span>{info.getValue()}</span>
+          <span className="font-semibold">{info.getValue()}</span>
         </div>
       ),
     }),
@@ -84,23 +84,25 @@ export default function CasesTable({ items }: { items: Patient[] }) {
   });
 
   return (
-    <div className="">
+    <div className="border-0">
       <Table>
-        <TableHeader>
+        <TableHeader className="[&_tr]:border-b-0">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <TableHead key={header.id} className="text-gray-400 text-sm font-light">
+                // <div className="mt-8" key={header.id}>
+                <TableHead className=" text-gray-400 text-sm font-light">
                   {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                 </TableHead>
+                // </div>
               ))}
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody>
+        <TableBody className="">
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id}>
+              <TableRow className="border-0" key={row.id}>
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                 ))}
