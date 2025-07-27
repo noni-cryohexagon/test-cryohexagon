@@ -16,10 +16,10 @@ import {
   UsersIcon,
 } from "lucide-react";
 
-import { NavDocuments } from "@/components/layout/nav-documents";
-import { NavMain } from "@/components/layout/nav-main";
-import { NavSecondary } from "@/components/layout/nav-secondary";
-import { NavUser } from "@/components/layout/nav-user";
+import { NavDocuments } from "@/components/layout/NavDocuments";
+import { NavMain } from "@/components/layout/NavMain";
+import { NavSecondary } from "@/components/layout/NavSecondary";
+import { NavUser } from "@/components/layout/NavUser";
 import {
   Sidebar,
   SidebarContent,
@@ -153,10 +153,7 @@ export function AppSidebar() {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className="data-[slot=sidebar-menu-button]:!p-1.5 "
-            >
+            <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:!p-1.5 ">
               <a href="#">
                 <ArrowUpCircleIcon className="h-5 w-5" />
                 <span className="text-base font-semibold">Acme Inc.</span>
