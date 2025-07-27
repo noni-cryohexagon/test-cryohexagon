@@ -28,7 +28,7 @@ const router = createBrowserRouter([
         element: <AuthProtectedRoute />,
         children: [
           {
-            path: "/protected",
+            path: "/dashboard",
             element: <ProtectedPage />,
           },
           {
