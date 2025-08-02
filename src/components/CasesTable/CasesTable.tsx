@@ -6,6 +6,7 @@ import SampleBadge from "./SampleBadge";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import PrepareCaseDialog from "./PrepareCaseDialog";
+import { Batch } from "@/pages/casesService";
 
 // Define the patient data type based on the image
 export type Patient = {
@@ -21,7 +22,7 @@ export type Patient = {
   moreCount: number;
 };
 
-export default function CasesTable({ items }: { items: Patient[] }) {
+export default function CasesTable({ items, batches }: { items: Patient[]; batches: Batch[] }) {
   const [currentCaseId, setCurrentCaseId] = useState<string | null>(null);
   // Create column helper
   const columnHelper = createColumnHelper<Patient>();
@@ -70,16 +71,28 @@ export default function CasesTable({ items }: { items: Patient[] }) {
       header: "Batches",
       cell: (info) => {
         const { embryos, oocytes, moreCount } = info.row.original;
+        console.log("🚀 ~ info.row:", info.row);
+
+        const caseNo = info.row.original.case_no;
+        const caseBatches = batches.filter((b) => b.caseId === caseNo);
+
+        const sampleType = caseBatches?.length > 0 ? caseBatches[0].sampleType : "unknown";
         return (
           <div className="flex items-center gap-2">
-            {embryos > 0 && <SampleBadge sample={`${embryos}`} color="yellow" />}
-            {oocytes > 0 && <SampleBadge sample={`${oocytes}`} color="blue" />}
-            {moreCount > 0 && <SampleBadge sample={`${moreCount}`} color="gray" />}
+            {caseBatches?.length > 0
+              ? caseBatches.map((b) => (
+                  <div key={b.id}>
+                    {sampleType === "oocyte" && <SampleBadge sample={`${b.numberOfSamples}`} color="yellow" />}
+                    {sampleType === "embryo" && <SampleBadge sample={`${b.numberOfSamples}`} color="blue" />}
+                    {moreCount > 0 && <SampleBadge sample={`${moreCount}`} color="gray" />}
+                  </div>
+                ))
+              : sampleType === "unknown" && <span className="text-gray-500">Loading...</span>}
           </div>
         );
       },
     }),
-    columnHelper.accessor("embryos", {
+    columnHelper.accessor("no-accessor", {
       header: "",
       cell: (info) => {
         return (
@@ -135,14 +148,17 @@ export default function CasesTable({ items }: { items: Patient[] }) {
         </TableBody>
       </Table>
 
-      <PrepareCaseDialog
-        title="Confirm Batch"
-        desc="Are you sure you want to confirm this batch?"
-        isOpen={!!currentCaseId}
-        setIsOpen={(open) => {
-          if (!open) setCurrentCaseId(null);
-        }}
-      />
+      {currentCaseId && (
+        <PrepareCaseDialog
+          caseId={currentCaseId}
+          title="Confirm Batch"
+          desc="Are you sure you want to confirm this batch?"
+          isOpen={!!currentCaseId}
+          setIsOpen={(open) => {
+            if (!open) setCurrentCaseId(null);
+          }}
+        />
+      )}
     </div>
   );
 }

@@ -1,19 +1,19 @@
-import { useEffect, useState } from 'react';
-import { toast } from 'sonner';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Link, useNavigate } from 'react-router-dom';
-import { Label } from '@/components/ui/label';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import supabase from '@/supabase';
-import { useSession } from '@/context/SessionContext';
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Link, useNavigate } from "react-router-dom";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import supabase from "@/supabase";
+import { useSession } from "@/context/SessionContext";
 
 export function AuthPage() {
   const { session } = useSession();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   // Handle login with email and password
   const handleLogin = async (e: React.FormEvent) => {
@@ -29,11 +29,11 @@ export function AuthPage() {
 
       if (error) throw error;
 
-      toast.success('Logged in successfully!');
+      toast.success("Logged in successfully!");
       // Redirect or handle successful login
     } catch (e) {
       const error = e as Error;
-      toast.error(error.message || 'Failed to login');
+      toast.error(error.message || "Failed to login");
     } finally {
       setLoading(false);
     }
@@ -53,11 +53,11 @@ export function AuthPage() {
 
       if (error) throw error;
 
-      toast.success('Registration successful! Please check your email for verification.');
+      toast.success("Registration successful! Please check your email for verification.");
       // Optionally redirect to login tab or show verification message
     } catch (e) {
       const error = e as Error;
-      toast.error(error.message || 'Failed to register');
+      toast.error(error.message || "Failed to register");
     } finally {
       setLoading(false);
     }
@@ -65,7 +65,7 @@ export function AuthPage() {
 
   useEffect(() => {
     if (session) {
-      navigate('/protected');
+      navigate("/dashboard");
     }
   }, [session, navigate]);
 
@@ -116,7 +116,7 @@ export function AuthPage() {
                       />
                     </div>
                     <Button type="submit" className="w-full" disabled={loading}>
-                      {loading ? 'Logging In...' : 'Login'}
+                      {loading ? "Logging In..." : "Login"}
                     </Button>
                   </div>
                 </form>
@@ -148,7 +148,7 @@ export function AuthPage() {
                       />
                     </div>
                     <Button type="submit" className="w-full" disabled={loading}>
-                      {loading ? 'Creating Account...' : 'Register'}
+                      {loading ? "Creating Account..." : "Register"}
                     </Button>
                   </div>
                 </form>

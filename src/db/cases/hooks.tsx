@@ -6,6 +6,14 @@ export function useCases() {
   return useQuery({ queryKey: ["cases"], queryFn: api.listCases });
 }
 
+export function useCase(id: string) {
+  return useQuery({
+    queryKey: ["case", id],
+    queryFn: () => api.getCase(id),
+    enabled: !!id,
+  });
+}
+
 export function useCreateCase() {
   const qc = useQueryClient();
   return useMutation({
@@ -17,8 +25,7 @@ export function useCreateCase() {
 export function useUpdateCase() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, changes }: { id: string; changes: Partial<NewCase> }) =>
-      api.updateCase(id, changes),
+    mutationFn: ({ id, changes }: { id: string; changes: Partial<NewCase> }) => api.updateCase(id, changes),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["cases"] }),
   });
 }

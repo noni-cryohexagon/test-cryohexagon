@@ -12,7 +12,7 @@ interface IProps {
 export default function PrepareCaseDialog({ caseId, title, desc, isOpen, setIsOpen }: IProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="overflow-hidden p-0">
+      <DialogContent className="min-w-350 overflow-hidden p-0">
         <DialogHeader className="">
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{desc}</DialogDescription>
