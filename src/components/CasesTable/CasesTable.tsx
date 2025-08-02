@@ -3,6 +3,10 @@ import { flexRender, getCoreRowModel, useReactTable, createColumnHelper } from "
 import { Avatar } from "@/components/ui/avatar";
 import SampleBadge from "./SampleBadge";
 
+import { useState } from "react";
+import { Button } from "../ui/button";
+import PrepareCaseDialog from "./PrepareCaseDialog";
+
 // Define the patient data type based on the image
 export type Patient = {
   avatar: string;
@@ -18,6 +22,7 @@ export type Patient = {
 };
 
 export default function CasesTable({ items }: { items: Patient[] }) {
+  const [currentCaseId, setCurrentCaseId] = useState<string | null>(null);
   // Create column helper
   const columnHelper = createColumnHelper<Patient>();
 
@@ -30,6 +35,7 @@ export default function CasesTable({ items }: { items: Patient[] }) {
 
   // Define columns
   const columns = [
+    getSimpleCellValue("case_no", "Case No."),
     columnHelper.accessor("name", {
       header: "Name",
       cell: (info) => (
@@ -42,7 +48,6 @@ export default function CasesTable({ items }: { items: Patient[] }) {
       ),
     }),
     getSimpleCellValue("id", "ID"),
-    getSimpleCellValue("case_no", "Case No."),
     getSimpleCellValue("cpu_sc", "CPU / SC"),
     columnHelper.accessor("partner", {
       header: "Partner",
@@ -70,6 +75,18 @@ export default function CasesTable({ items }: { items: Patient[] }) {
             {embryos > 0 && <SampleBadge sample={`${embryos}`} color="yellow" />}
             {oocytes > 0 && <SampleBadge sample={`${oocytes}`} color="blue" />}
             {moreCount > 0 && <SampleBadge sample={`${moreCount}`} color="gray" />}
+          </div>
+        );
+      },
+    }),
+    columnHelper.accessor("embryos", {
+      header: "",
+      cell: (info) => {
+        return (
+          <div className="flex items-center gap-2">
+            <Button size="sm" onClick={() => setCurrentCaseId(info.row.original.id)}>
+              Confirm batch
+            </Button>
           </div>
         );
       },
@@ -117,6 +134,15 @@ export default function CasesTable({ items }: { items: Patient[] }) {
           )}
         </TableBody>
       </Table>
+
+      <PrepareCaseDialog
+        title="Confirm Batch"
+        desc="Are you sure you want to confirm this batch?"
+        isOpen={!!currentCaseId}
+        setIsOpen={(open) => {
+          if (!open) setCurrentCaseId(null);
+        }}
+      />
     </div>
   );
 }

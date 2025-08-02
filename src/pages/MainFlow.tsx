@@ -23,21 +23,21 @@ export default function MainFlow() {
   const accordionItems: AccordionItemType<Patient[]>[] = [
     {
       id: "1",
-      title: "Prepare for freezing",
+      title: "Prepare for storage",
       ContentComponent: CasesTableWrapper,
       item: cases ?? [],
       totalCount: 4,
     },
     {
       id: "2",
-      title: "Ready for freezing",
+      title: "Ready for storage",
       ContentComponent: CasesTableWrapper,
       item: cases ?? [],
       totalCount: 2,
     },
     {
       id: "3",
-      title: "Stored",
+      title: "Stored today",
       ContentComponent: CasesTableWrapper,
       item: cases ?? [],
       totalCount: 1,
