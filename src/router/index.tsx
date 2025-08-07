@@ -38,6 +38,10 @@ const router = createBrowserRouter([
             element: <DailyView />,
             children: [
               {
+                path: "/daily-view",
+                element: <InsertionsView />,
+              },
+              {
                 path: "/daily-view/insertions",
                 element: <InsertionsView />,
               },

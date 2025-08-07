@@ -2,8 +2,6 @@ import { cn } from "@/lib/utils";
 import { Badge } from "../ui/badge";
 
 export default function SampleBadge({ sample = "", type = "" }: { sample?: string; type?: string }) {
-  console.log("🚀 ~ SampleBadge ~ type:", type);
-
   const oocyteNumberColor = sample ? "#FB7EE4" : "#BC5FAB";
   const embryoNumberColor = sample ? "#F7C348" : "#B99236";
 

@@ -15,7 +15,6 @@ interface CasesTableProps<T> {
 
 export default function MainFlowAccordion<T>({ items }: CasesTableProps<T>) {
   const [isOpenMap, setIsOpenMap] = useState<Map<string, boolean>>(new Map());
-  console.log("🚀 ~ MainFlowAccordion ~ isOpenMap:", isOpenMap);
 
   return (
     <Accordion type="multiple" className="w-full w-">

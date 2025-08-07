@@ -72,7 +72,6 @@ export default function CasesTable({ items, batches }: { items: Patient[]; batch
 
         const caseNo = info.row.original.case_no;
         const caseBatches = batches.filter((b) => b.caseId === caseNo);
-        console.log("🚀 ~ batches:", batches);
 
         const sampleType = caseBatches?.length > 0 ? caseBatches[0].sampleType : "unknown";
         return (
