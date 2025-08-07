@@ -31,7 +31,9 @@ export default function AppsTabs({ tabs, activeTabId, onTabChange, children }: I
               >
                 {tab.title}
                 {tab.badge && (
-                  <span className="px-2 py-1 ml-2 items-center justify-center rounded-full bg-red-100 text-xs font-medium text-white">
+                  <span
+                    className={`px-[6px] py-[2px] ml-2 items-center justify-center rounded-full  text-xs font-medium text-white transform -translate-y-1/2 -translate-x-1/2 ${currentTab === tab.id ? "bg-red-400" : "bg-red-300"}`}
+                  >
                     {tab.badge}
                   </span>
                 )}
