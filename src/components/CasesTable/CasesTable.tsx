@@ -69,39 +69,39 @@ export default function CasesTable({ items, batches }: { items: Patient[]; batch
       header: "Batches",
       cell: (info) => {
         const { embryos, oocytes, moreCount } = info.row.original;
-        console.log("🚀 ~ info.row:", info.row);
 
         const caseNo = info.row.original.case_no;
         const caseBatches = batches.filter((b) => b.caseId === caseNo);
+        console.log("🚀 ~ batches:", batches);
 
         const sampleType = caseBatches?.length > 0 ? caseBatches[0].sampleType : "unknown";
         return (
-          <div className="flex items-center gap-2">
-            {caseBatches?.length > 0
-              ? caseBatches.map((b) => (
-                  <div key={b.id}>
-                    {sampleType === "oocyte" && <SampleBadge sample={`${b.numberOfSamples}`} color="yellow" />}
-                    {sampleType === "embryo" && <SampleBadge sample={`${b.numberOfSamples}`} color="blue" />}
-                    {moreCount > 0 && <SampleBadge sample={`${moreCount}`} color="gray" />}
-                  </div>
-                ))
-              : sampleType === "unknown" && <span className="text-gray-500">Loading...</span>}
+          <div className="flex items-center gap-1">
+            {caseBatches?.length > 0 && (
+              <>
+                <SampleBadge type={sampleType} />
+                {caseBatches.map((b) => (
+                  <div key={b.id}>{<SampleBadge sample={`${b.numberOfSamples}`} />}</div>
+                ))}
+              </>
+            )}
+            {sampleType === "unknown" && <span className="text-gray-500">Loading...</span>}
           </div>
         );
       },
     }),
-    columnHelper.accessor("no-accessor", {
-      header: "",
-      cell: (info) => {
-        return (
-          <div className="flex items-center gap-2">
-            <Button size="sm" onClick={() => setCurrentCaseId(info.row.original.id)}>
-              Confirm batch
-            </Button>
-          </div>
-        );
-      },
-    }),
+    // columnHelper.accessor("no-accessor", {
+    //   header: "",
+    //   cell: (info) => {
+    //     return (
+    //       <div className="flex items-center gap-2">
+    //         <Button size="sm" onClick={() => setCurrentCaseId(info.row.original.id)}>
+    //           Confirm batch
+    //         </Button>
+    //       </div>
+    //     );
+    //   },
+    // }),
   ];
 
   // Initialize table
@@ -113,16 +113,13 @@ export default function CasesTable({ items, batches }: { items: Patient[]; batch
 
   return (
     <div className="border-0">
-      <div>
-        <Input placeholder="Search..." type="search" />
-      </div>
-      <Table>
+      <Table className="w-full bg-white">
         <TableHeader className="[&_tr]:border-b-0">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 // <div className="mt-8" key={header.id}>
-                <TableHead className=" text-gray-400 text-sm font-light">
+                <TableHead className="px-6 text-gray-400 text-sm font-light">
                   {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                 </TableHead>
                 // </div>
@@ -133,9 +130,15 @@ export default function CasesTable({ items, batches }: { items: Patient[]; batch
         <TableBody className="">
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
-              <TableRow className="border-0" key={row.id}>
+              <TableRow
+                className="border-0 cursor-pointer"
+                key={row.id}
+                onClick={() => setCurrentCaseId(row.original.id)}
+              >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                  <TableCell className="px-6" key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
                 ))}
               </TableRow>
             ))
