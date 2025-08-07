@@ -1,4 +1,6 @@
 if (!import.meta.env.VITE_SUPABASE_ANON_KEY) {
+  console.log("🚨 ", import.meta.env.VITE_SUPABASE_ANON_KEY);
+  console.log("🚨 ", import.meta.env.SUPABASE_ANON_KEY);
   alert("VITE_SUPABASE_ANON_KEY is required");
   throw new Error("VITE_SUPABASE_ANON_KEY is requireddddd");
 }
