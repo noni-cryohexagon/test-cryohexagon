@@ -42,7 +42,7 @@ export default function DailyView() {
   ];
 
   return (
-    <main className="flex w-full mx-auto flex-col gap-4 mt-7">
+    <main className="max-w-[1440px] mx-auto flex w-full mx-auto flex-col gap-4 mt-7">
       <AppTabs tabs={adminTabs} activeTabId={activeTab} onTabChange={handleTabChange}>
         <Outlet />
       </AppTabs>
