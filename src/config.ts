@@ -1,10 +1,10 @@
 if (!import.meta.env.VITE_SUPABASE_ANON_KEY) {
   alert("VITE_SUPABASE_ANON_KEY is required");
-  throw new Error("VITE_SUPABASE_ANON_KEY is required");
+  throw new Error("VITE_SUPABASE_ANON_KEY is requireddddd");
 }
 if (!import.meta.env.VITE_SUPABASE_URL) {
   alert("VITE_SUPABASE_URL is required");
-  throw new Error("VITE_SUPABASE_URL is required");
+  throw new Error("VITE_SUPABASE_URL is requireddddd");
 }
 
 console.log(import.meta.env.VITE_SUPABASE_ANON_KEY);

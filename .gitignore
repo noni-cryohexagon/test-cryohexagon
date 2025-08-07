@@ -16,6 +16,7 @@ dist-ssr
 .env.production
 .env.development
 .env.test
+.env.bkp
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
