@@ -85,7 +85,7 @@ export default function InsertionsView() {
           />
         </div>
 
-        <div className="max-w-[1440px] mx-auto">
+        <div>
           <MainFlowAccordion items={accordionItems} />
         </div>
       </div>
