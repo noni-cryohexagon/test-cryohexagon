@@ -50,7 +50,7 @@ export default function CasesTable({ items, batches }: { items: Patient[]; batch
       ),
     }),
     getSimpleCellValue("id", "ID"),
-    getSimpleCellValue("cpu_sc", "CPU / SC"),
+    getSimpleCellValue("cpu_sc", "OPU / SC"),
     columnHelper.accessor("partner", {
       header: "Partner",
       cell: (info) => {
@@ -65,6 +65,30 @@ export default function CasesTable({ items, batches }: { items: Patient[]; batch
       },
     }),
     getSimpleCellValue("timer", "Timer"),
+    columnHelper.accessor("timer", {
+      header: "Timer",
+      cell: (info) => {
+        const timeArr = info.getValue().split(":");
+        const hour =
+          timeArr[0] > 0 ? (
+            <>
+              {timeArr[0]}
+              <span className="text-gray-300">h</span>
+            </>
+          ) : null;
+        const minute = (
+          <>
+            {timeArr[1]}
+            <span className="text-gray-300">m</span>
+          </>
+        );
+        return (
+          <span className="text-sm text-gray-500">
+            {hour} {minute}
+          </span>
+        );
+      },
+    }),
     columnHelper.accessor("embryos", {
       header: "Batches",
       cell: (info) => {
@@ -80,7 +104,7 @@ export default function CasesTable({ items, batches }: { items: Patient[]; batch
               <>
                 <SampleBadge type={sampleType} />
                 {caseBatches.map((b) => (
-                  <div key={b.id}>{<SampleBadge sample={`${b.numberOfSamples}`} />}</div>
+                  <div key={b.id}>{<SampleBadge type={sampleType} sample={`${b.numberOfSamples}`} />}</div>
                 ))}
               </>
             )}
@@ -126,16 +150,12 @@ export default function CasesTable({ items, batches }: { items: Patient[]; batch
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody className="">
+        <TableBody className="border-t-1">
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
-              <TableRow
-                className="border-0 cursor-pointer"
-                key={row.id}
-                onClick={() => setCurrentCaseId(row.original.id)}
-              >
+              <TableRow className=" cursor-pointer" key={row.id} onClick={() => setCurrentCaseId(row.original.id)}>
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell className="px-6" key={cell.id}>
+                  <TableCell className="py-2 px-6" key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}

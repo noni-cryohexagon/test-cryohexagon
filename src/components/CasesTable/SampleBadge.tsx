@@ -10,10 +10,11 @@ export default function SampleBadge({ sample = "", type = "" }: { sample?: strin
     color: type === "oocyte" ? oocyteNumberColor : embryoNumberColor,
     borderColor: type === "oocyte" ? "#FEECFB" : "#FEF6E4",
   };
+  const typeLabel = type ? type + "s" : null;
 
   return (
     <Badge variant="outline" className={cn("rounded-sm px-2 py-1 text-sm font-light capitalize")} style={style}>
-      {sample} {type}
+      {sample} {sample ? null : typeLabel}
       {/* <span className={className}>🥚</span> {sample} {type} */}
     </Badge>
   );

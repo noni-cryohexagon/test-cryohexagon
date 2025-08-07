@@ -31,11 +31,13 @@ export default function DailyView() {
       id: "insertions",
       component: InsertionsView,
       title: "Insertions",
+      badge: 6,
     },
     {
       id: "extractions",
       component: ExtractionsView,
       title: "Extractions",
+      badge: 3,
     },
   ];
 

@@ -12,12 +12,10 @@ const AuthProtectedRoute = () => {
     return <NotFoundPage />;
   }
   return (
-    <SidebarProvider>
+    <SidebarProvider className="p-0 m-0 md:peer-data-[variant=inset]:m-0">
       <AppSidebar />
-      <SidebarInset>
-        <AppHeader>
-          <SidebarTrigger className="-ml-1" />
-        </AppHeader>
+      <SidebarInset className="p-0 m-0 md:peer-data-[variant=inset]:m-0 md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-0 md:peer-data-[variant=inset]:rounded-none">
+        <AppHeader>{/* <SidebarTrigger className="-ml-1" /> */}</AppHeader>
         <Outlet />
       </SidebarInset>
     </SidebarProvider>

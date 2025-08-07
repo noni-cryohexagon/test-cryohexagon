@@ -32,28 +32,34 @@ export default function InsertionsView() {
   );
 
   const accordionItems: AccordionItemType<{ cases: Patient[]; batches: Batch[] }>[] = useMemo(() => {
-    const filteredCases = cases?.filter((c) => c.case_no.includes(filter)) || [];
+    const filteredCases = cases?.filter((c) => c.case_no.substring(0, filter.length) === filter) || [];
+    const sortedCases = filteredCases
+
+      .sort((a, b) => (b.oocytes > 0 ? 1 : 0) - (a.oocytes > 0 ? 1 : 0))
+      .sort((a, b) => new Date(a.timer) - new Date(b.timer));
+    // .sort((a, b) => b.oocytes - a.oocytes);
+    console.log("🚀 ~ InsertionsView ~ sortedCases:", sortedCases);
 
     return [
       {
         id: "1",
         title: "Prepare for storage",
         ContentComponent: CasesTableWrapper,
-        item: { cases: filteredCases, batches: batches || [] },
+        item: { cases: sortedCases, batches: batches || [] },
         totalCount: 4,
       },
       {
         id: "2",
         title: "Ready for storage",
         ContentComponent: () => <CasesTable items={[]} batches={[]} />,
-        item: { cases: filteredCases, batches: batches || [] },
+        item: { cases: sortedCases, batches: batches || [] },
         totalCount: 2,
       },
       {
         id: "3",
         title: "Stored today",
         ContentComponent: () => <CasesTable items={[]} batches={[]} />,
-        item: { cases: filteredCases, batches: batches || [] },
+        item: { cases: sortedCases, batches: batches || [] },
         totalCount: 1,
       },
     ];
@@ -69,17 +75,17 @@ export default function InsertionsView() {
       <div className="ml-2">
         <div className="flex items-center mb-4">
           <img src="/magnifying-glass.png" alt="Search" className="inline-block w-5 h-5 mr-0 align-middle" />
-          {/* <MgnifyingGlass />> */}
           <Input
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
             placeholder="Case number"
             type="search"
-            className="border-0 shadow-none"
+            className="border-0 shadow-none focus:ring-0 focus:border-0 focus:outline-none"
+            style={{ outline: "none", boxShadow: "none" }}
           />
         </div>
 
-        <div className="">
+        <div className="max-w-[1440px] mx-auto">
           <MainFlowAccordion items={accordionItems} />
         </div>
       </div>

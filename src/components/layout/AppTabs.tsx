@@ -4,6 +4,7 @@ export type Tab = {
   id: string;
   component: React.FC<any>;
   title: string;
+  badge?: number;
 };
 
 interface IProps {
@@ -29,6 +30,11 @@ export default function AppsTabs({ tabs, activeTabId, onTabChange, children }: I
                 className="flex-1  py-5 px-6  data-[state=active]:border-b-4 data-[state=active]:border-b-black  data-[state=active]:text-primary data-[state=active]:font-medium text-lg font-light  rounded-none cursor-pointer text-gray-500 hover:text-black "
               >
                 {tab.title}
+                {tab.badge && (
+                  <span className="px-2 py-1 ml-2 items-center justify-center rounded-full bg-red-100 text-xs font-medium text-white">
+                    {tab.badge}
+                  </span>
+                )}
               </TabsTrigger>
             ))}
           </TabsList>
