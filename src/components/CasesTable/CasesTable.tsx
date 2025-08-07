@@ -49,7 +49,7 @@ export default function CasesTable({ items, batches }: { items: Patient[]; batch
         </div>
       ),
     }),
-    getSimpleCellValue("id", "ID"),
+    getSimpleCellValue("hackId", "ID"),
     getSimpleCellValue("cpu_sc", "OPU / SC"),
     columnHelper.accessor("partner", {
       header: "Partner",
