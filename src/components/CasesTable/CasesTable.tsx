@@ -45,7 +45,7 @@ export default function CasesTable({ items, batches }: { items: Patient[]; batch
           <Avatar className="h-8 w-8 rounded-full">
             <img src={`/mock/${info.row.original.avatar}`} alt={info.getValue()} />
           </Avatar>
-          <span className="font-semibold">{info.getValue()}</span>
+          <span className="font-medium">{info.getValue()}</span>
         </div>
       ),
     }),
