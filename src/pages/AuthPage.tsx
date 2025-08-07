@@ -51,7 +51,10 @@ export function AuthPage() {
         password,
       });
 
-      if (error) throw error;
+      if (error) {
+        alert(error.message);
+        throw error;
+      }
 
       toast.success("Registration successful! Please check your email for verification.");
       alert("Please check your email for verification.");
