@@ -17,6 +17,8 @@ interface IProps {}
 
 export default function DailyView() {
   const navigate = useNavigate();
+  useCases();
+
   const [activeTab, setActiveTab] = useState("insertions");
 
   const handleTabChange = (tabId: string) => {

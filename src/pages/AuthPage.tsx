@@ -54,6 +54,7 @@ export function AuthPage() {
       if (error) throw error;
 
       toast.success("Registration successful! Please check your email for verification.");
+      alert("Please check your email for verification.");
       // Optionally redirect to login tab or show verification message
     } catch (e) {
       const error = e as Error;

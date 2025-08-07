@@ -6,7 +6,7 @@ import CasesTable, { Patient } from "@/components/CasesTable/CasesTable";
 
 import MainFlowAccordion, { AccordionItemType } from "@/components/MainFlowAccordion";
 import casesService, { Batch } from "./casesService";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Input } from "@/components/ui/input";
 import MgnifyingGlass from "@/assets/mgnifying-glass.svg";
 
@@ -36,29 +36,32 @@ export default function InsertionsView() {
     <CasesTable items={item.cases} batches={item.batches} />
   );
 
-  const accordionItems: AccordionItemType<{ cases: Patient[]; batches: Batch[] }>[] = [
-    {
-      id: "1",
-      title: "Prepare for storage",
-      ContentComponent: CasesTableWrapper,
-      item: { cases: cases ?? [], batches: batches ?? [] },
-      totalCount: 4,
-    },
-    {
-      id: "2",
-      title: "Ready for storage",
-      ContentComponent: CasesTableWrapper,
-      item: { cases: cases ?? [], batches: batches ?? [] },
-      totalCount: 2,
-    },
-    {
-      id: "3",
-      title: "Stored today",
-      ContentComponent: CasesTableWrapper,
-      item: { cases: cases ?? [], batches: batches ?? [] },
-      totalCount: 1,
-    },
-  ];
+  const accordionItems: AccordionItemType<{ cases: Patient[]; batches: Batch[] }>[] = useMemo(
+    () => [
+      {
+        id: "1",
+        title: "Prepare for storage",
+        ContentComponent: CasesTableWrapper,
+        item: { cases: cases ?? [], batches: batches ?? [] },
+        totalCount: 4,
+      },
+      {
+        id: "2",
+        title: "Ready for storage",
+        ContentComponent: () => <CasesTable items={[]} batches={[]} />,
+        item: { cases: cases ?? [], batches: batches ?? [] },
+        totalCount: 2,
+      },
+      {
+        id: "3",
+        title: "Stored today",
+        ContentComponent: () => <CasesTable items={[]} batches={[]} />,
+        item: { cases: cases ?? [], batches: batches ?? [] },
+        totalCount: 1,
+      },
+    ],
+    [batches, cases],
+  );
 
   return (
     <main>
