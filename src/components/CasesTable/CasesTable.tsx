@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import PrepareCaseDialog from "./PrepareCaseDialog";
 import { Batch } from "@/pages/casesService";
+import { Input } from "../ui/input";
 
 // Define the patient data type based on the image
 export type Patient = {
@@ -42,7 +43,7 @@ export default function CasesTable({ items, batches }: { items: Patient[]; batch
       cell: (info) => (
         <div className="flex items-center gap-2">
           <Avatar className="h-8 w-8 rounded-full">
-            <img src={info.row.original.avatar} alt={info.getValue()} />
+            <img src={`/mock/${info.row.original.avatar}`} alt={info.getValue()} />
           </Avatar>
           <span className="font-semibold">{info.getValue()}</span>
         </div>
@@ -56,9 +57,6 @@ export default function CasesTable({ items, batches }: { items: Patient[]; batch
         const partner = info.getValue();
         return partner ? (
           <div className="flex items-center gap-2">
-            <Avatar className="h-6 w-6 rounded-full bg-gray-300">
-              <span className="text-xs">P</span>
-            </Avatar>
             <span>{partner}</span>
           </div>
         ) : (
@@ -115,6 +113,9 @@ export default function CasesTable({ items, batches }: { items: Patient[]; batch
 
   return (
     <div className="border-0">
+      <div>
+        <Input placeholder="Search..." type="search" />
+      </div>
       <Table>
         <TableHeader className="[&_tr]:border-b-0">
           {table.getHeaderGroups().map((headerGroup) => (

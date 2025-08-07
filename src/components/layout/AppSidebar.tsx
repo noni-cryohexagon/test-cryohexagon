@@ -43,8 +43,8 @@ const data = {
       icon: LayoutDashboardIcon,
     },
     {
-      title: "Main Flow",
-      url: "/main-flow",
+      title: "Daily View",
+      url: "/daily-view/insertions",
       icon: ListIcon,
     },
     // {

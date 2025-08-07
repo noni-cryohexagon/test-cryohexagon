@@ -65,7 +65,7 @@ export function AuthPage() {
 
   useEffect(() => {
     if (session) {
-      navigate("/dashboard");
+      navigate("/daily-view");
     }
   }, [session, navigate]);
 

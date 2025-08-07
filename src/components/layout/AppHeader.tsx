@@ -11,18 +11,23 @@ import orgLogo from "./org-logo.png";
 import userLogo from "./user-logo.png";
 import HexaConfIcon from "./hexa-conf-icon.png";
 
+const style = {
+  height: 30,
+  width: 30,
+};
+
 export default function AppHeader({ children }: { children?: React.ReactNode }) {
   return (
     <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
       {children}
       <div className="flex-1 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <img src={orgLogo} alt="Logo" className="h-8 w-8" />
-          <img src={userLogo} alt="User Logo" className="h-8 w-8" />
-          <div className="flex items-center gap-2">Elad Magen</div>
-        </div>
         <div className="">
-          <img src={HexaConfIcon} alt="HexaConf Logo" className="h-8 w-8" />
+          <img src={HexaConfIcon} alt="HexaConf Logo" className="" style={style} />
+        </div>
+
+        <div className="flex items-center gap-2">
+          <img src={orgLogo} alt="Logo" className="" style={style} />
+          <img src={userLogo} alt="User Logo" className="" style={style} />
         </div>
       </div>
     </header>
