@@ -4,11 +4,14 @@ if (!import.meta.env.VITE_SUPABASE_ANON_KEY) {
   alert(`🚨  ${import.meta.env.VITE_SUPABASE_ANON_KEY}`);
 
   alert("VITE_SUPABASE_ANON_KEY is requiredqqqqq");
-  throw new Error("VITE_SUPABASE_ANON_KEY is requiredddddccccddd");
+  throw new Error("VITE_SUPABASE_ANON_KEY is requiredddddccccdddeeeee");
 }
 if (!import.meta.env.VITE_SUPABASE_URL) {
+  alert(`🚨  ${import.meta.env}`);
+  alert(`🚨  ${import.meta.env.SUPABASE_ANON_KEY}`);
+  alert(`🚨  ${import.meta.env.VITE_SUPABASE_ANON_KEY}`);
   alert("VITE_SUPABASE_URL is required");
-  throw new Error("VITE_SUPABASE_URL is requiredddddcccc");
+  throw new Error("VITE_SUPABASE_URL is requiredddddcccczzzz");
 }
 
 console.log(import.meta.env.VITE_SUPABASE_ANON_KEY);
