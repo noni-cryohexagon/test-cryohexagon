@@ -18,6 +18,7 @@ function getSampleType(c: Patient): SampleType {
   return c.oocytes > 0 ? "oocyte" : "embryo";
 }
 
+// Organizing samples in sample containers
 async function computeBatches(cases: Patient[]): Promise<Batch[]> {
   await new Promise((resolve) => setTimeout(resolve, 1000 + Math.random() * 1000)); // Simulate network delay
 
