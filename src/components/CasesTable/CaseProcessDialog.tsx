@@ -9,7 +9,7 @@ interface IProps {
   setIsOpen: (open: boolean) => void;
 }
 
-export default function PrepareCaseDialog({ caseId, title, desc, isOpen, setIsOpen }: IProps) {
+export default function CaseProcessDialog({ caseId, title, desc, isOpen, setIsOpen }: IProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="min-w-350 overflow-hidden p-0">

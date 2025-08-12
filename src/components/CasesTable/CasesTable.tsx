@@ -4,10 +4,8 @@ import { Avatar } from "@/components/ui/avatar";
 import SampleBadge from "./SampleBadge";
 
 import { useState } from "react";
-import { Button } from "../ui/button";
-import PrepareCaseDialog from "./PrepareCaseDialog";
+import CaseProcessDialog from "./CaseProcessDialog";
 import { Batch } from "@/pages/casesService";
-import { Input } from "../ui/input";
 
 // Define the patient data type based on the image
 export type Patient = {
@@ -172,7 +170,7 @@ export default function CasesTable({ items, batches }: { items: Patient[]; batch
       </Table>
 
       {currentCaseId && (
-        <PrepareCaseDialog
+        <CaseProcessDialog
           caseId={currentCaseId}
           title="Confirm Batch"
           desc="Are you sure you want to confirm this batch?"
