@@ -19,7 +19,7 @@ export default function StepWrapper({
       setTimeout(() => {
         setIsDisplayingStep(true);
         setIsTransitioning(false);
-      }, 800);
+      }, 200);
     } else {
       setIsTransitioning(true);
       setTimeout(() => {
@@ -32,9 +32,9 @@ export default function StepWrapper({
   return (
     <div
       className={cn(
-        `text-lg font-light opacity-0 transition-opacity duration-800`,
-        !isShow && " absolute z-10 opacity-0 transition-opacity duration-800",
-        !isShow && !isTransitioning && "width-0 hidden",
+        `absolute text-lg font-light opacity-0 transition-opacity duration-800`,
+        !isShow && "z-10 opacity-0 transition-opacity duration-800",
+        !isShow && !isTransitioning && "width-0 height-0 hidden",
         // isTransitioning && "absolute top-0 left-0 z-10 opacity-100 transition-opacity duration-800",
         isDisplayingStep && "block w-full  opacity-100 z-30 transition-opacity duration-800",
         className,

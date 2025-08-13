@@ -82,7 +82,8 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
         setIsOpen(open);
       }}
     >
-      <DialogOverlay style={{ background: "var(--background)" }} />
+      <DialogOverlay style={{ backgroundColor: "var(--background)" }} />
+      {/* <DialogOverlay className="bg-black/500" style={{ backgroundColor: "var(--background)" }} /> */}
       <VisuallyHidden>
         <DialogTitle>Case Details</DialogTitle>
       </VisuallyHidden>
@@ -98,7 +99,7 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
           <button
             type="button"
             aria-label="Close"
-            className="absolute -top-15 -right-3 z-20 inline-flex size-9 items-center justify-center rounded-full border bg-background shadow-lg hover:opacity-90 focus:outline-none focus-visible:ring"
+            className="absolute -top-15 -right-0 z-20 inline-flex size-9 items-center justify-center rounded-full border bg-background shadow-lg hover:opacity-90 focus:outline-none focus-visible:ring"
             style={{ backgroundColor: "#E9E9E2", border: "none" }}
           >
             <X className="size-5" aria-hidden="true" />
