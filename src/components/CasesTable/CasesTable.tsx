@@ -172,8 +172,6 @@ export default function CasesTable({ items, batches }: { items: Patient[]; batch
       {currentCaseId && (
         <CaseProcessDialog
           caseId={currentCaseId}
-          title="Confirm Batch"
-          desc="Are you sure you want to confirm this batch?"
           isOpen={!!currentCaseId}
           setIsOpen={(open) => {
             if (!open) setCurrentCaseId(null);
