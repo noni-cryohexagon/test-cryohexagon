@@ -14,13 +14,11 @@ import { ChevronRight, X } from "lucide-react";
 
 import { useCase } from "@/db/cases/hooks";
 import { Avatar } from "@radix-ui/react-avatar";
-import SpotSvg from "./SpotSvg";
+import SpotSvg from "./common/SpotSvg";
 
-import DialogText from "./common/DialogText";
-import VerticalTimeIndicator from "./common/VerticalTimeIndicator";
-import LineWrapper from "./common/LineWrapper";
-import { cn } from "@/lib/utils";
-import CtaButton from "./common/CtaButton";
+import CaseStatusStep from "./steps/CaseStatusStep";
+import OrganizeSamplesStep from "./steps/OrganizeSamplesStep";
+import { useState } from "react";
 
 const patientDataMap = {
   name: "Name",
@@ -38,11 +36,14 @@ interface IProps {
   setIsOpen: (open: boolean) => void;
 }
 
+export type Steps = "caseStatus" | "organizeSamples";
+
 export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps) {
   const { data: caseData, isLoading } = useCase(caseId);
+  const [currentStep, setCurrentStep] = useState<Steps>("caseStatus");
 
   const gotToAssignSamples = () => {
-    console.log("Going to assign samples");
+    setCurrentStep("organizeSamples");
   };
 
   const newCaseData = { ...caseData, serology: "Negative" };
@@ -117,37 +118,10 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
         </div>
 
         {/* <ScrollArea className=" overflow-hidden"> */}
-        <div className="relative min-h-[494px] px-25 pt-4 overflow-hidden">
-          <VerticalTimeIndicator className="w-30 " height={100} hours={1} minutes={50} />
-          <div className="ml-4">
-            <section className="space-y-3">
-              <DialogText>Prepare for storage:</DialogText>
-
-              <LineWrapper>
-                <div className="group flex items-center justify-between">
-                  <div className="flex items-center gap-3 text-sm">
-                    <Badge type="embryos" number={4} text="Embryos" />
-                    <span className="text-muted-foreground">to assign</span>
-                  </div>
-                  <div className=" opacity-0 group-hover:opacity-100">
-                    <CtaButton onClick={gotToAssignSamples}>Organize samples</CtaButton>
-                  </div>
-                </div>
-              </LineWrapper>
-            </section>
-
-            <section className="mt-6 space-y-3">
-              <DialogText>Stored:</DialogText>
-              <LineWrapper>
-                <div className="flex flex-wrap items-center gap-3 text-sm">
-                  <Badge type="straws" number={3} text="Straws" />
-                  <Badge type="embryos" number={8} text="Embryos" />
-                  <span className="text-muted-foreground">Cane 9393103</span>
-                </div>
-              </LineWrapper>
-            </section>
-
-            {/* <div className="mt-8">{newCaseData && <CaseEditor caseId={newCaseData.id} />}</div> */}
+        <div className="relative min-h-[494px] flex w-full px-25 pt-4 overflow-hidden">
+          <div className="relative w-full">
+            <CaseStatusStep onNext={gotToAssignSamples} currentStep={currentStep} />
+            <OrganizeSamplesStep onNext={gotToAssignSamples} currentStep={currentStep} />
           </div>
         </div>
         {/* </ScrollArea> */}
@@ -163,45 +137,5 @@ function Info({ label, value, className }: { label: string; value: string; class
       <div className="text-sm font-light text-indigo-200">{patientDataMap[label]}</div>
       <div className="mt-0.5 font-light text-sm">{value}</div>
     </div>
-  );
-}
-
-function Badge({
-  type,
-  number,
-  text,
-  isRounded = true,
-}: {
-  type: string;
-  number: number;
-  text: string;
-  isRounded?: boolean;
-}) {
-  const colorMap = {
-    embryos: {
-      textColor: "#241F1C",
-      borderColor: "#FFD46E",
-      backgroundColor: "#FFD46E",
-    },
-  };
-
-  const colors = colorMap[type] || colorMap["embryos"];
-
-  return (
-    <span
-      style={{ borderColor: colors.borderColor }}
-      className={cn(
-        "min-h-[32px] inline-flex select-none items-center gap-1 border bg-background  text-xs font-medium shadow-sm",
-        isRounded && "rounded-full",
-      )}
-    >
-      <span
-        style={{ color: colors.textColor, backgroundColor: colors.backgroundColor }}
-        className={cn("ml-1 min-h-[24px] min-w-[27px] flex items-center justify-center", isRounded && "rounded-full")}
-      >
-        {number}
-      </span>
-      <span className={cn("ml-2 mr-3 flex items-center justify-center", isRounded && "rounded-full")}>{text}</span>
-    </span>
   );
 }
