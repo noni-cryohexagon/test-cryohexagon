@@ -79,7 +79,7 @@ button {
 }
 :root {
   --radius: 0.5rem;
-  --background: #f3f2ee;
+  --background: #f7f7ef;
   --foreground: oklch(0.141 0.005 285.823);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.141 0.005 285.823);

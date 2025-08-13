@@ -2,6 +2,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { useCase } from "@/db/cases/hooks";
 import CaseEditorRow from "./CaseEditorRow";
+import VerticalTimeIndicator from "./common/VerticalTimeIndicator";
 
 export type EmbryoData = {
   id: string;
@@ -135,8 +136,7 @@ export default function CaseEditor({ caseId }: { caseId: string }) {
 
       <div className="mt-8">
         <div className="relative">
-          <div className="absolute left-0 top-0 h-70 w-[5px] bg-red-400"></div>
-          <Badge className="absolute left-[20px] top-0 bg-red-400 hover:bg-red-500 text-white">1h 50m</Badge>
+          <VerticalTimeIndicator className="" height={100} hours={1} minutes={50} />
 
           <div className="ml-[85px]">
             <h3 className="font-medium mb-4">Prepare for storage</h3>

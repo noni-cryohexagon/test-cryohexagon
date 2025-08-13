@@ -8,13 +8,19 @@ import {
   DialogOverlay,
 } from "../ui/dialog";
 import CaseEditor from "./CaseEditor";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
-import { Patient } from "./CasesTable";
+import { ChevronRight, X } from "lucide-react";
+
 import { useCase } from "@/db/cases/hooks";
 import { Avatar } from "@radix-ui/react-avatar";
 import SpotSvg from "./SpotSvg";
+
+import DialogText from "./common/DialogText";
+import VerticalTimeIndicator from "./common/VerticalTimeIndicator";
+import LineWrapper from "./common/LineWrapper";
+import { cn } from "@/lib/utils";
+import CtaButton from "./common/CtaButton";
 
 const patientDataMap = {
   name: "Name",
@@ -35,7 +41,12 @@ interface IProps {
 export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps) {
   const { data: caseData, isLoading } = useCase(caseId);
 
+  const gotToAssignSamples = () => {
+    console.log("Going to assign samples");
+  };
+
   const newCaseData = { ...caseData, serology: "Negative" };
+
   return (
     <Dialog
       open={isOpen}
@@ -47,10 +58,12 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
       }}
     >
       <DialogOverlay style={{ background: "var(--background)" }} />
-
+      <VisuallyHidden>
+        <DialogTitle>Case Details</DialogTitle>
+      </VisuallyHidden>
       <DialogContent
         // Make this the positioning context for floating bits
-        className="w-[1440px] min-w-[1370px] max-w-[95vw]  min-h-[650px] max-h-[650px] p-0  rounded-2xl border-0"
+        className="w-[1440px] min-w-[1370px] max-w-[95vw]  min-h-[650px] max-h-[650px] p-0 bg-white rounded-2xl border-0"
       >
         <span className="absolute -top-13.5 left-0 flex z-2 text-xl font-light ">
           Insertions <ChevronRight className="mt-0.5 mx-3 size-6" /> Case {caseData?.case_no}
@@ -104,29 +117,38 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
         </div>
 
         {/* <ScrollArea className=" overflow-hidden"> */}
-        <div className="min-h-[494px] px-6 pb-6 overflow-hidden">
-          <section className="space-y-3">
-            <h3 className="text-base font-medium">Prepare for storage:</h3>
-            <div className="rounded-xl border bg-muted/30 px-4 py-3">
-              <div className="flex items-center gap-3 text-sm">
-                <Badge>4 Embryos</Badge>
-                <span className="text-muted-foreground">to assign</span>
-              </div>
-            </div>
-          </section>
+        <div className="relative min-h-[494px] px-25 pt-4 overflow-hidden">
+          <VerticalTimeIndicator className="w-30 " height={100} hours={1} minutes={50} />
+          <div className="ml-4">
+            <section className="space-y-3">
+              <DialogText>Prepare for storage:</DialogText>
 
-          <section className="mt-6 space-y-3">
-            <h3 className="text-base font-medium">Stored:</h3>
-            <div className="rounded-xl border bg-muted/30 px-4 py-3">
-              <div className="flex flex-wrap items-center gap-3 text-sm">
-                <Badge>3 Straws</Badge>
-                <Badge>8 Embryos</Badge>
-                <span className="text-muted-foreground">Cane 9393103</span>
-              </div>
-            </div>
-          </section>
+              <LineWrapper>
+                <div className="group flex items-center justify-between">
+                  <div className="flex items-center gap-3 text-sm">
+                    <Badge type="embryos" number={4} text="Embryos" />
+                    <span className="text-muted-foreground">to assign</span>
+                  </div>
+                  <div className=" opacity-0 group-hover:opacity-100">
+                    <CtaButton onClick={gotToAssignSamples}>Organize samples</CtaButton>
+                  </div>
+                </div>
+              </LineWrapper>
+            </section>
 
-          {/* <div className="mt-8">{newCaseData && <CaseEditor caseId={newCaseData.id} />}</div> */}
+            <section className="mt-6 space-y-3">
+              <DialogText>Stored:</DialogText>
+              <LineWrapper>
+                <div className="flex flex-wrap items-center gap-3 text-sm">
+                  <Badge type="straws" number={3} text="Straws" />
+                  <Badge type="embryos" number={8} text="Embryos" />
+                  <span className="text-muted-foreground">Cane 9393103</span>
+                </div>
+              </LineWrapper>
+            </section>
+
+            {/* <div className="mt-8">{newCaseData && <CaseEditor caseId={newCaseData.id} />}</div> */}
+          </div>
         </div>
         {/* </ScrollArea> */}
       </DialogContent>
@@ -144,10 +166,42 @@ function Info({ label, value, className }: { label: string; value: string; class
   );
 }
 
-function Badge({ children }: { children: React.ReactNode }) {
+function Badge({
+  type,
+  number,
+  text,
+  isRounded = true,
+}: {
+  type: string;
+  number: number;
+  text: string;
+  isRounded?: boolean;
+}) {
+  const colorMap = {
+    embryos: {
+      textColor: "#241F1C",
+      borderColor: "#FFD46E",
+      backgroundColor: "#FFD46E",
+    },
+  };
+
+  const colors = colorMap[type] || colorMap["embryos"];
+
   return (
-    <span className="inline-flex items-center gap-1 rounded-full border bg-background px-2.5 py-0.5 text-xs font-medium shadow-sm">
-      {children}
+    <span
+      style={{ borderColor: colors.borderColor }}
+      className={cn(
+        "min-h-[32px] inline-flex select-none items-center gap-1 border bg-background  text-xs font-medium shadow-sm",
+        isRounded && "rounded-full",
+      )}
+    >
+      <span
+        style={{ color: colors.textColor, backgroundColor: colors.backgroundColor }}
+        className={cn("ml-1 min-h-[24px] min-w-[27px] flex items-center justify-center", isRounded && "rounded-full")}
+      >
+        {number}
+      </span>
+      <span className={cn("ml-2 mr-3 flex items-center justify-center", isRounded && "rounded-full")}>{text}</span>
     </span>
   );
 }

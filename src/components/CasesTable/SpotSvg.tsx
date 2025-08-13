@@ -12,9 +12,9 @@ export default function SpotSvg() {
           width="374.357"
           height="374.357"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
           <feGaussianBlur stdDeviation="50" result="effect1_foregroundBlur_1430_3917" />
         </filter>
@@ -26,8 +26,8 @@ export default function SpotSvg() {
           y2="176.354"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#2239E6" />
-          <stop offset="1" stop-color="#D13AFF" />
+          <stop stopColor="#2239E6" />
+          <stop offset="1" stopColor="#D13AFF" />
         </linearGradient>
       </defs>
     </svg>

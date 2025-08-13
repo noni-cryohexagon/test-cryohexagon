@@ -62,7 +62,6 @@ export default function CasesTable({ items, batches }: { items: Patient[]; batch
         );
       },
     }),
-    getSimpleCellValue("timer", "Timer"),
     columnHelper.accessor("timer", {
       header: "Timer",
       cell: (info) => {
