@@ -19,6 +19,10 @@ import SpotSvg from "./common/SpotSvg";
 import CaseStatusStep from "./steps/CaseStatusStep";
 import OrganizeSamplesStep from "./steps/OrganizeSamplesStep";
 import { useState } from "react";
+import PrimaryButton from "./common/PrimaryButton";
+import AllocateCanesStep from "./steps/AllocateCanesStep";
+import { cn } from "@/lib/utils";
+import DialogText from "./common/DialogText";
 
 const patientDataMap = {
   name: "Name",
@@ -30,13 +34,27 @@ const patientDataMap = {
   serology: "Serology",
 };
 
+export type Steps = "caseStatus" | "organizeSamples" | "allocateCanesStep";
+
+const stepsMap = {
+  caseStatus: {
+    nextStep: "organizeSamples",
+    isShowFooter: false,
+  },
+  organizeSamples: {
+    nextStep: "allocateCanesStep",
+    isShowFooter: true,
+  },
+  allocateCanesStep: {
+    nextStep: null,
+    isShowFooter: true,
+  },
+};
 interface IProps {
   caseId: string;
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
 }
-
-export type Steps = "caseStatus" | "organizeSamples";
 
 export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps) {
   const { data: caseData, isLoading } = useCase(caseId);
@@ -47,6 +65,12 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
   };
 
   const newCaseData = { ...caseData, serology: "Negative" };
+
+  const handleNext = () => {
+    setCurrentStep(stepsMap[currentStep].nextStep || "caseStatus");
+  };
+
+  const stepConf = stepsMap[currentStep];
 
   return (
     <Dialog
@@ -120,22 +144,62 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
         {/* <ScrollArea className=" overflow-hidden"> */}
         <div className="relative min-h-[494px] flex w-full px-25 pt-4 overflow-hidden">
           <div className="relative w-full">
-            <CaseStatusStep onNext={gotToAssignSamples} currentStep={currentStep} />
-            <OrganizeSamplesStep onNext={gotToAssignSamples} currentStep={currentStep} />
+            <CaseStatusStep onNext={handleNext} currentStep={currentStep} />
+            <OrganizeSamplesStep onNext={handleNext} currentStep={currentStep} />
+            <AllocateCanesStep onNext={handleNext} currentStep={currentStep} />
           </div>
         </div>
         {/* </ScrollArea> */}
+        <Footer
+          stepNum={1}
+          totalSteps={2}
+          title="Organize samples in straws."
+          description="You can drag & drop samples between straws."
+          className={cn(
+            "mt-4 opacity-0 transition-opacity duration-800",
+            stepConf.isShowFooter && "opacity-100",
+            !stepConf.isShowFooter && "pointer-events-none",
+          )}
+        >
+          <PrimaryButton onClick={handleNext}>Next</PrimaryButton>
+        </Footer>
       </DialogContent>
     </Dialog>
   );
 }
 
-/** Small helpers (keep UI clean) */
 function Info({ label, value, className }: { label: string; value: string; className?: string }) {
   return (
     <div className={`capitalize ${className}`}>
       <div className="text-sm font-light text-indigo-200">{patientDataMap[label]}</div>
       <div className="mt-0.5 font-light text-sm">{value}</div>
+    </div>
+  );
+}
+
+function Footer({
+  stepNum,
+  totalSteps,
+  title,
+  description,
+  children,
+  className,
+}: {
+  stepNum: number;
+  totalSteps: number;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={`bg-white px-14 py-8 flex items-center justify-between rounded-2xl ${className}`}>
+      <div className="flex items-center">
+        <DialogText className="mr-4 text-2xl font-light text-indigo-200">
+          <span className="text-black">{stepNum}</span>/{totalSteps}
+        </DialogText>
+        <DialogText className="text-sm font-light ">{title}</DialogText>
+        <DialogText className="ml-5 font-light text-sm text-[#807E7E]">{description}</DialogText>
+      </div>
+      <div className="flex items-center">{children}</div>
     </div>
   );
 }
