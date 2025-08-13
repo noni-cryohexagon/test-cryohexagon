@@ -48,6 +48,7 @@ const stepsMap = {
   allocateCanesStep: {
     nextStep: null,
     isShowFooter: true,
+    footerText: "Confirm",
   },
 };
 interface IProps {
@@ -60,10 +61,6 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
   const { data: caseData, isLoading } = useCase(caseId);
   const [currentStep, setCurrentStep] = useState<Steps>("caseStatus");
 
-  const gotToAssignSamples = () => {
-    setCurrentStep("organizeSamples");
-  };
-
   const newCaseData = { ...caseData, serology: "Negative" };
 
   const handleNext = () => {
@@ -71,6 +68,15 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
   };
 
   const stepConf = stepsMap[currentStep];
+  console.log("🚀 ~ CaseProcessDialog ~ stepConf:", currentStep);
+  console.log("🚀 ~ CaseProcessDialog ~ stepConf:", stepConf);
+
+  const stepProps = {
+    setNextStep: handleNext,
+    currentStep: currentStep,
+    caseData,
+    currentState: { newCanes: [] },
+  };
 
   return (
     <Dialog
@@ -144,11 +150,13 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
 
         {/* <ScrollArea className=" overflow-hidden"> */}
         <div className="relative min-h-[494px] flex w-full px-25 pt-4 overflow-hidden">
-          <div className="relative w-full">
-            <CaseStatusStep onNext={handleNext} currentStep={currentStep} />
-            <OrganizeSamplesStep onNext={handleNext} currentStep={currentStep} />
-            <AllocateCanesStep onNext={handleNext} currentStep={currentStep} />
-          </div>
+          {caseData && (
+            <div className="relative w-full">
+              <CaseStatusStep {...stepProps} />
+              <OrganizeSamplesStep {...stepProps} />
+              <AllocateCanesStep {...stepProps} />
+            </div>
+          )}
         </div>
         {/* </ScrollArea> */}
         <Footer
@@ -158,11 +166,11 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
           description="You can drag & drop samples between straws."
           className={cn(
             "mt-4 opacity-0 transition-opacity duration-800",
-            stepConf.isShowFooter && "opacity-100",
-            !stepConf.isShowFooter && "pointer-events-none",
+            stepConf?.isShowFooter && "opacity-100",
+            !stepConf?.isShowFooter && "pointer-events-none",
           )}
         >
-          <PrimaryButton onClick={handleNext}>Next</PrimaryButton>
+          <PrimaryButton onClick={handleNext}>{stepConf.footerText || "Next"}</PrimaryButton>
         </Footer>
       </DialogContent>
     </Dialog>
@@ -188,6 +196,8 @@ function Footer({
 }: {
   stepNum: number;
   totalSteps: number;
+  title: string;
+  description: string;
   children: React.ReactNode;
   className?: string;
 }) {

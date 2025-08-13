@@ -17,9 +17,15 @@ export default function Badge({
       borderColor: "#FFD46E",
       backgroundColor: "#FFD46E",
     },
+    oocytes: {
+      textColor: "#241F1C",
+      borderColor: "#FFBEF3",
+      backgroundColor: "#FFBEF3",
+    },
   };
 
   const colors = colorMap[type] || colorMap["embryos"];
+  console.log('type', type)
 
   return (
     <span

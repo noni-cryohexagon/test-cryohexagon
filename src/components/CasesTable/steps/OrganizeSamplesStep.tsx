@@ -19,7 +19,7 @@ const samples = [
   { id: "4", stage: "8I-II", type: "Euploid" },
 ];
 
-export default function OrganizeSamplesStep({ currentStep, onNext }: { currentStep: Steps; onNext: () => void }) {
+export default function OrganizeSamplesStep({ currentStep }: { currentStep: Steps }) {
   const [selectedSamples, setSelectedSamples] = useState<string[]>([]);
   const [straws, setStraws] = useState<Straw[]>([]);
 

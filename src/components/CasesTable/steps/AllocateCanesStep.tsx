@@ -70,9 +70,9 @@ export default function AllocateCanesStep({ currentStep, onNext }: { currentStep
             </div>
 
             <div className="flex-1 text-sm mr-3">
-              Cane <span className="font-medium text-[var(--primary)]">NEW</span>:
+              Cane <span className="font-medium text-[var(--primary)]">NEW</span>
             </div>
-            {/* <div className="" */}
+            <div className="w-6 border-b " />
             <ArrayDisplay
               cellProps={[
                 { label: "Room", value: "1", isDarkBG: false },
