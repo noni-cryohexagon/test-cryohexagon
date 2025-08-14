@@ -44,6 +44,10 @@ const stepsMap = {
   organizeSamples: {
     nextStep: "allocateCanesStep",
     isShowFooter: true,
+    footerIsDisabled: (currentState) => {
+      console.log("currentState.samples", currentState.samples);
+      return currentState.samples.length > 0;
+    },
   },
   allocateCanesStep: {
     nextStep: null,
@@ -51,6 +55,18 @@ const stepsMap = {
     footerText: "Confirm",
   },
 };
+
+const state = {
+  newCanes: [],
+  newStraws: [],
+  samples: [
+    { id: "1", stage: "8I-II", type: "Euploid" },
+    { id: "2", stage: "8I-II", type: "Euploid" },
+    { id: "3", stage: "8I-II", type: "Euploid" },
+    { id: "4", stage: "8I-II", type: "Euploid" },
+  ],
+};
+
 interface IProps {
   caseId: string;
   isOpen: boolean;
@@ -60,6 +76,7 @@ interface IProps {
 export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps) {
   const { data: caseData, isLoading } = useCase(caseId);
   const [currentStep, setCurrentStep] = useState<Steps>("caseStatus");
+  const [currentState, setCurrentState] = useState<any>(state);
 
   const newCaseData = { ...caseData, serology: "Negative" };
 
@@ -68,16 +85,20 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
   };
 
   const stepConf = stepsMap[currentStep];
-  console.log("🚀 ~ CaseProcessDialog ~ stepConf:", currentStep);
-  console.log("🚀 ~ CaseProcessDialog ~ stepConf:", stepConf);
+  // console.log("🚀 ~ CaseProcessDialog ~ stepConf:", currentStep);
+  // console.log("🚀 ~ CaseProcessDialog ~ stepConf:", stepConf);
 
   const stepProps = {
     setNextStep: handleNext,
     currentStep: currentStep,
     caseData,
-    currentState: { newCanes: [] },
+    currentState,
+    setCurrentState,
   };
 
+  console.log("stepConf?.footerIsDisabled", currentStep);
+  console.log("stepConf?.footerIsDisabled", stepConf);
+  console.log("stepConf?.footerIsDisabled", stepConf?.footerIsDisabled);
   return (
     <Dialog
       open={isOpen}
@@ -170,7 +191,12 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
             !stepConf?.isShowFooter && "pointer-events-none",
           )}
         >
-          <PrimaryButton onClick={handleNext}>{stepConf.footerText || "Next"}</PrimaryButton>
+          <PrimaryButton
+            onClick={handleNext}
+            disabled={stepConf?.footerIsDisabled ? stepConf.footerIsDisabled(stepProps.currentState) : false}
+          >
+            {stepConf.footerText || "Next"}
+          </PrimaryButton>
         </Footer>
       </DialogContent>
     </Dialog>

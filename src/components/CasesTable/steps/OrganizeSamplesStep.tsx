@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import DialogText from "../common/DialogText";
 import { Steps } from "../CaseProcessDialog";
@@ -12,16 +12,16 @@ type Straw = {
   sampleIds: string[];
 };
 
-const samples = [
-  { id: "1", stage: "8I-II", type: "Euploid" },
-  { id: "2", stage: "8I-II", type: "Euploid" },
-  { id: "3", stage: "8I-II", type: "Euploid" },
-  { id: "4", stage: "8I-II", type: "Euploid" },
-];
-
-export default function OrganizeSamplesStep({ currentStep }: { currentStep: Steps }) {
+export default function OrganizeSamplesStep({
+  currentStep,
+  currentState,
+  setCurrentState,
+}: {
+  currentStep: Steps;
+  currentState: any;
+  setCurrentState: (state: any) => void;
+}) {
   const [selectedSamples, setSelectedSamples] = useState<string[]>([]);
-  const [straws, setStraws] = useState<Straw[]>([]);
 
   const toggleSelection = (id: string) => {
     if (selectedSamples.includes(id)) {
@@ -32,12 +32,22 @@ export default function OrganizeSamplesStep({ currentStep }: { currentStep: Step
   };
 
   const createNewStraw = () => {
-    setStraws([...straws, { id: straws.length + 1, sampleIds: selectedSamples }]);
     setSelectedSamples([]);
+    setCurrentState((prevState) => ({
+      ...prevState,
+      samples: prevState.samples.filter((sample) => !selectedSamples.includes(sample.id)),
+      newStraws: [
+        ...prevState.newStraws,
+        {
+          id: prevState.newStraws.length + 1,
+          samples: prevState.samples.filter((sample) => selectedSamples.includes(sample.id)),
+        },
+      ],
+    }));
   };
 
-  const remainingSamples = samples.filter(
-    (sample) => !straws.reduce((acc, straw) => acc.concat(straw.sampleIds), []).includes(sample.id),
+  const remainingSamples = currentState.samples.filter(
+    (sample) => !currentState.newStraws.reduce((acc, straw) => acc.concat(straw.samples), []).includes(sample.id),
   );
 
   return (
@@ -72,12 +82,11 @@ export default function OrganizeSamplesStep({ currentStep }: { currentStep: Step
       )}
 
       <DialogText className="mt-10 mb-2">Straws</DialogText>
-      {straws.map((straw) => (
+      {currentState.newStraws.map((straw) => (
         <RowWrapper key={straw.id}>
           <div className="mr-4 px-4 py-1 bg-[#FFD46E]  rounded-xs text-sm">Straw #{straw.id}</div>
 
-          {straw.sampleIds.map((id) => {
-            const sample = samples.find((s) => s.id === id);
+          {straw.samples.map((sample) => {
             if (!sample) return null;
             return (
               <div className="mr-3" key={sample.id}>

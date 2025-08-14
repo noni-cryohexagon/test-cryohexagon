@@ -25,7 +25,7 @@ export default function Badge({
   };
 
   const colors = colorMap[type] || colorMap["embryos"];
-  console.log('type', type)
+  // console.log('type', type)
 
   return (
     <span
