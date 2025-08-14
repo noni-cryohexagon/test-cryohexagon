@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 import AppTabs, { Tab } from "@/components/layout/AppTabs";
 import InsertionsView from "./InsertionsView";
 import ExtractionsView from "./ExtractionsView";
+import { cn } from "@/lib/utils";
+import { useHideDailyView } from "./dailyViewAtom";
 
 // Create mock data based on the image
 
@@ -17,6 +19,7 @@ interface IProps {}
 
 export default function DailyView() {
   const navigate = useNavigate();
+  const { value: isHide } = useHideDailyView();
 
   const [activeTab, setActiveTab] = useState("insertions");
 
@@ -41,8 +44,9 @@ export default function DailyView() {
     },
   ];
 
+  console.log("Admin isHide:", isHide);
   return (
-    <main className="max-w-[1440px] mx-auto flex w-full mx-auto flex-col gap-4 mt-7">
+    <main className={cn("max-w-[1440px] mx-auto flex w-full mx-auto flex-col gap-4 mt-7", { hidden: isHide })}>
       <AppTabs tabs={adminTabs} activeTabId={activeTab} onTabChange={handleTabChange}>
         <Outlet />
       </AppTabs>

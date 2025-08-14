@@ -3,10 +3,11 @@ import { flexRender, getCoreRowModel, useReactTable, createColumnHelper } from "
 import { Avatar } from "@/components/ui/avatar";
 import SampleBadge from "./SampleBadge";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CaseProcessDialog from "./CaseProcessDialog";
 import { Batch } from "@/pages/casesService";
 import Badge from "./common/Badge";
+import { useHideDailyView } from "@/pages/dailyViewAtom";
 
 // Define the patient data type based on the image
 export type Patient = {
@@ -24,7 +25,12 @@ export type Patient = {
 
 export default function CasesTable({ items, batches }: { items: Patient[]; batches: Batch[] }) {
   const [currentCaseId, setCurrentCaseId] = useState<string | null>(null);
-  // Create column helper
+  const { setDailyViewHidden } = useHideDailyView();
+
+  useEffect(() => {
+    setDailyViewHidden(!!currentCaseId);
+  }, [currentCaseId]);
+
   const columnHelper = createColumnHelper<Patient>();
 
   const getSimpleCellValue = (accessorId: keyof Patient, label: string) => {

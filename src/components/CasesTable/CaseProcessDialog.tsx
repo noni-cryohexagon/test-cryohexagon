@@ -5,7 +5,7 @@ import {
   DialogTitle,
   DialogDescription,
   DialogClose,
-  DialogOverlay,
+  // DialogOverlay,
 } from "../ui/dialog";
 import CaseEditor from "./CaseEditor";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
@@ -18,7 +18,7 @@ import SpotSvg from "./common/SpotSvg";
 
 import CaseStatusStep from "./steps/CaseStatusStep";
 import OrganizeSamplesStep from "./steps/OrganizeSamplesStep";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PrimaryButton from "./common/PrimaryButton";
 import AllocateCanesStep from "./steps/AllocateCanesStep";
 import { cn } from "@/lib/utils";
@@ -166,8 +166,8 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
         setIsOpen(open);
       }}
     >
-      <DialogOverlay style={{ backgroundColor: "var(--background)" }} />
-      {/* <DialogOverlay className="bg-black/500" style={{ backgroundColor: "var(--background)" }} /> */}
+      {/* <DialogOverlay style={{ display: "none" }} /> */}
+      {/* <DialogOverlay className="opacity-0" style={{ backgroundColor: "var(--background)" }} /> */}
       <VisuallyHidden>
         <DialogTitle>Case Details</DialogTitle>
       </VisuallyHidden>
