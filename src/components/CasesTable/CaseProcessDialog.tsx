@@ -57,7 +57,7 @@ const stepsMap = {
     isShowFooter: false,
   },
   organizeSamples: {
-    nextStep: "finalConfirmationStep",
+    nextStep: "allocateCanesStep",
     isShowFooter: true,
     footerTitle: "Organize samples in straws.",
     footerDescription: "Select samples to create a straw.",

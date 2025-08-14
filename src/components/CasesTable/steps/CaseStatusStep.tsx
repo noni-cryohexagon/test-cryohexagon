@@ -171,7 +171,7 @@ export default function CaseStatusStep({
         </section>
         {/* <div className="mt-8">{newCaseData && <CaseEditor caseId={newCaseData.id} />}</div> */}
         <div className="absolute bottom-0 -mb-34">
-          {!isStartAnimation && (
+          {/* {!isStartAnimation && (
             <>
               <PrimaryButton onClick={() => setIsStartAnimation(!isStartAnimation)}>animation</PrimaryButton>{" "}
               isMoveCane: {isStartAnimation + ""}
@@ -183,7 +183,7 @@ export default function CaseStatusStep({
           <div>isFadeOutEmptyRow: {isFadeOutEmptyRow + ""}</div>
           <div>isAnimationDone: {isAnimationDone + ""}</div>
           <div>isAnimationDoneCompletely: {isAnimationDoneCompletely + ""}</div>
-          isMoveCane: {isMoveCane + ""}
+          isMoveCane: {isMoveCane + ""} */}
         </div>
       </div>
     </StepWrapper>
