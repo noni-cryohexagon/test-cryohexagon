@@ -35,10 +35,10 @@ export default function CaseStatusStep({
         <section className="space-y-3">
           <DialogText>Prepare for storage:</DialogText>
 
-          <div className="group">
-            <LineWrapper>
+          <div className={cn("group", canPrepare && "cursor-pointer")}>
+            <LineWrapper hasHoverEffect>
               <div
-                className="flex items-center justify-between"
+                className={cn("flex items-center justify-between")}
                 onClick={() => canPrepare && setIsLineOpen(!isLineOpen)}
               >
                 {canOrganize && (
@@ -47,15 +47,17 @@ export default function CaseStatusStep({
                     <span className="text-muted-foreground">to assign</span>
                   </div>
                 )}
-                {canPrepare && currentState.newStraws && <CaneDisplay cane={{ straws: currentState.newStraws }} />}
-                {canPrepare && isLineOpen && (
-                  <div>
-                    {currentState.newStraws.map((straw) => (
-                      <StrawDisplay straw={straw} className="mb-2" hideClose />
-                    ))}
-                  </div>
-                )}
-                <div className=" opacity-0 group-hover:opacity-100">
+                <div>
+                  {canPrepare && currentState.newStraws && <CaneDisplay cane={{ straws: currentState.newStraws }} />}
+                  {canPrepare && isLineOpen && (
+                    <div className="mt-6">
+                      {currentState.newStraws.map((straw) => (
+                        <StrawDisplay straw={straw} className="mb-2 ml-5" hideClose />
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <div className="self-start opacity-0 group-hover:opacity-100">
                   {canOrganize && (
                     <CtaButton onClick={() => setNextStep("organizeSamples")}>Organize samples</CtaButton>
                   )}

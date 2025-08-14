@@ -62,7 +62,7 @@ const stepsMap = {
     stepNum: 1,
     totalSteps: 2,
     footerIsDisabled: (currentState) => {
-      console.log("currentState.samples", currentState.samples);
+      console.log("currentState", currentState);
       return currentState.samples.length > 0;
     },
   },

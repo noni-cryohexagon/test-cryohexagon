@@ -10,7 +10,7 @@ export default function CtaButton({
   children: React.ReactNode;
 }) {
   return (
-    <Button {...props} className={cn(`bg-[#B4B5FF]`, className)}>
+    <Button {...props} className={cn(`bg-[var(--primary)]`, className)}>
       {children}
     </Button>
   );

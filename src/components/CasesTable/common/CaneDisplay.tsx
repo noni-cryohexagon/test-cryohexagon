@@ -14,7 +14,7 @@ export default function CaneDisplay({ cane }: { cane: Cane }) {
       <div className="mr-3">
         <SampleCountBadge
           isRounded
-          amount={cane.straws.reduce((acc, s) => acc + s.sampleIds.length, 0)}
+          amount={cane.straws.reduce((acc, s) => acc + s.samples.length, 0)}
           type="embryos"
           text={`embryos DAY 3`}
           onClick={undefined}

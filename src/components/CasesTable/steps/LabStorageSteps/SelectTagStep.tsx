@@ -1,24 +1,11 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import DialogText from "../../common/DialogText";
 import { Steps } from "../../CaseProcessDialog";
 import StepWrapper from "../../common/StepWrapper";
-import RowWrapper from "../../common/RowWrapper";
 
 import CaneDisplay from "../../common/CaneDisplay";
 
-import { Cane } from "../../CaseProcessDialog";
 import TagSelector from "../../common/TagSelector";
-
-const canes: Cane[] = [
-  {
-    id: "001",
-    straws: [
-      { id: "1", sampleIds: ["1", "2"] },
-      { id: "2", sampleIds: ["3", "4"] },
-    ],
-  },
-];
 
 const tagOptions = [
   { id: "1", color: "#6CD671", value: "Red" },
@@ -32,7 +19,7 @@ const tagOptions = [
 export default function SelectTagStep({ currentState, currentStep }: { currentStep: Steps }) {
   return (
     <StepWrapper isShow={currentStep === "selectTagStep"}>
-      {canes.map((cane) => (
+      {currentState.newCanes.map((cane) => (
         <CaneDisplay cane={cane} />
       ))}
 
