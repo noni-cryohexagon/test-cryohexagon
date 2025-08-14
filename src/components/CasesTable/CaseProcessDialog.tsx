@@ -57,7 +57,7 @@ const stepsMap = {
     isShowFooter: false,
   },
   organizeSamples: {
-    nextStep: "allocateCanesStep",
+    nextStep: "finalConfirmationStep",
     isShowFooter: true,
     footerTitle: "Organize samples in straws.",
     footerDescription: "Select samples to create a straw.",
@@ -136,6 +136,7 @@ export type Straw = {
 };
 
 const state = {
+  isDone: false,
   newCanes: [],
   newStraws: [],
   samples: [
@@ -188,6 +189,12 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
   const newCaseData = { ...caseData, serology: "Negative" };
 
   const handleNext = () => {
+    if (currentStep === "finalConfirmationStep") {
+      setCurrentState((prevState) => ({
+        ...prevState,
+        isDone: true,
+      }));
+    }
     setCurrentStep(stepsMap[currentStep].nextStep || "caseStatus");
   };
 

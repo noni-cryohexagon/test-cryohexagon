@@ -13,7 +13,7 @@ export interface FooterProps {
 export default function Footer({ className }: FooterProps) {
   // export default function Footer({ stepNum, totalSteps, title, description, children, className }: FooterProps) {
   const { value: footerValue } = useFooter();
-  console.log("🚀 ~ Footer ~ footerValue:", footerValue);
+
   return (
     <div className={`bg-white px-14 py-6 flex items-center justify-between rounded-2xl ${className}`}>
       <div className="flex items-center">
