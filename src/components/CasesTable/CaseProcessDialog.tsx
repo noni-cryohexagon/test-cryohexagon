@@ -25,6 +25,7 @@ import { cn } from "@/lib/utils";
 import DialogText from "./common/DialogText";
 import OrganizeSamplesInStrawsStep from "./steps/LabStorageSteps/OrganizeSamplesInStrawsStep";
 import PrintLabelStep from "./steps/LabStorageSteps/PrintLabelStep";
+import PrintLabelFinishedStep from "./steps/LabStorageSteps/PrintLabelFinishedStep";
 import SelectTagStep from "./steps/LabStorageSteps/SelectTagStep";
 
 const patientDataMap = {
@@ -43,6 +44,7 @@ export type Steps =
   | "allocateCanesStep"
   | "organizeSamplesInStrawsStep"
   | "printLabelStep"
+  | "printLabelFinishedStep"
   | "selectTagStep";
 
 const stepsMap = {
@@ -86,18 +88,34 @@ const stepsMap = {
     },
   },
   printLabelStep: {
-    nextStep: "selectTagStep",
+    nextStep: "printLabelFinishedStep",
     isShowFooter: true,
     footerTitle: "Print the cane label.",
     stepNum: 2,
     totalSteps: 5,
-    footerText: "Confirm",
+    footerText: "Print label",
+  },
+  printLabelFinishedStep: {
+    nextStep: "selectTagStep",
+    isShowFooter: true,
+    footerTitle: "Confirm label has been collected.",
+    stepNum: 3,
+    totalSteps: 5,
+    footerText: "Confirm label pickup",
   },
   selectTagStep: {
-    nextStep: null,
+    nextStep: "finalConfirmationStep",
     isShowFooter: true,
     footerTitle: "Select the cane tag color.",
-    stepNum: 3,
+    stepNum: 4,
+    totalSteps: 5,
+    footerText: "Confirm",
+  },
+  finalConfirmationStep: {
+    nextStep: null,
+    isShowFooter: true,
+    footerTitle: "Confirm all straws are ready for storage..",
+    stepNum: 5,
     totalSteps: 5,
     footerText: "Confirm",
   },
@@ -153,9 +171,6 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
     setCurrentState,
   };
 
-  console.log("stepConf?.footerIsDisabled", currentStep);
-  console.log("stepConf?.footerIsDisabled", stepConf);
-  console.log("stepConf?.footerIsDisabled", stepConf?.footerIsDisabled);
   return (
     <Dialog
       open={isOpen}
@@ -235,6 +250,7 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
               <AllocateCanesStep {...stepProps} />
               <OrganizeSamplesInStrawsStep {...stepProps} />
               <PrintLabelStep {...stepProps} />
+              <PrintLabelFinishedStep {...stepProps} />
               <SelectTagStep {...stepProps} />
             </div>
           )}
