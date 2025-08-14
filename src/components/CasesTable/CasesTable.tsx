@@ -6,6 +6,7 @@ import SampleBadge from "./SampleBadge";
 import { useState } from "react";
 import CaseProcessDialog from "./CaseProcessDialog";
 import { Batch } from "@/pages/casesService";
+import Badge from "./common/Badge";
 
 // Define the patient data type based on the image
 export type Patient = {
@@ -90,18 +91,50 @@ export default function CasesTable({ items, batches }: { items: Patient[]; batch
       header: "Batches",
       cell: (info) => {
         const { embryos, oocytes, moreCount } = info.row.original;
+        const sampleType = embryos > 0 ? "embryo" : oocytes > 0 ? "oocyte" : "sperm";
+        const mapToBatch = {
+          "4295715": [
+            { amount: 5, isHighlighted: true },
+            { amount: 7, isHighlighted: true },
+            { amount: 3, isHighlighted: false },
+          ],
+          "9581156": [
+            { amount: 3, isHighlighted: true },
+            { amount: 4, isHighlighted: true },
+            { amount: 1, isHighlighted: false },
+          ],
+          "4295714": [{ amount: 4, isHighlighted: false }],
+          "1254547": [
+            { amount: 2, isHighlighted: false },
+            { amount: 3, isHighlighted: false },
+          ],
+          "6741922": [{ amount: 1, isHighlighted: false }],
+        };
+        const caseBatches = mapToBatch[info.row.original.case_no];
+        // const caseNo = info.row.original.case_no;
+        // const caseBatches = batches.filter((b) => b.caseId === caseNo);
 
-        const caseNo = info.row.original.case_no;
-        const caseBatches = batches.filter((b) => b.caseId === caseNo);
+        // const sampleType = caseBatches?.length > 0 ? caseBatches[0].sampleType : "unknown";
 
-        const sampleType = caseBatches?.length > 0 ? caseBatches[0].sampleType : "unknown";
+        if (info.row.original.case_no === "4295714") {
+          return (
+            <div className="flex items-center gap-2">
+              <Badge type={sampleType} number={4} text={"Embryos"} />{" "}
+              <span className="font-light text-gray-500 text-xs">to assign</span>
+            </div>
+          );
+        }
         return (
           <div className="flex items-center gap-1">
             {caseBatches?.length > 0 && (
               <>
-                <SampleBadge type={sampleType} />
-                {caseBatches.map((b) => (
-                  <div key={b.id}>{<SampleBadge type={sampleType} sample={`${b.numberOfSamples}`} />}</div>
+                <span className="mr-3 font-light capitalize text-sm">
+                  {sampleType === "sperm" ? "sperm sample" : sampleType}s
+                </span>
+                {caseBatches.map((b, index) => (
+                  <div key={index}>
+                    {<SampleBadge type={sampleType} sample={`${b.amount}`} isHighlighted={b.isHighlighted} />}
+                  </div>
                 ))}
               </>
             )}

@@ -53,6 +53,10 @@ const stepsMap = {
   organizeSamples: {
     nextStep: "allocateCanesStep",
     isShowFooter: true,
+    footerTitle: "Organize samples in straws.",
+    footerDescription: "Select samples to create a straw.",
+    stepNum: 1,
+    totalSteps: 2,
     footerIsDisabled: (currentState) => {
       console.log("currentState.samples", currentState.samples);
       return currentState.samples.length > 0;
@@ -61,6 +65,10 @@ const stepsMap = {
   allocateCanesStep: {
     nextStep: "caseStatus",
     isShowFooter: true,
+    footerTitle: "Organize samples in straws.",
+    footerDescription: "You can drag & drop samples between straws.",
+    stepNum: 2,
+    totalSteps: 2,
     footerText: "Confirm",
   },
 
@@ -68,16 +76,25 @@ const stepsMap = {
   organizeSamplesInStrawsStep: {
     nextStep: "printLabelStep",
     isShowFooter: true,
+    footerTitle: "Confirm all straws are prepared.",
+    stepNum: 1,
+    totalSteps: 5,
     footerText: "Confirm",
   },
   printLabelStep: {
     nextStep: "selectTagStep",
     isShowFooter: true,
+    footerTitle: "Print the cane label.",
+    stepNum: 2,
+    totalSteps: 5,
     footerText: "Confirm",
   },
   selectTagStep: {
     nextStep: null,
     isShowFooter: true,
+    footerTitle: "Select the cane tag color.",
+    stepNum: 3,
+    totalSteps: 5,
     footerText: "Confirm",
   },
 };
