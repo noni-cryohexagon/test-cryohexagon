@@ -10,7 +10,14 @@ export default function PrimaryButton({
   children: React.ReactNode;
 }) {
   return (
-    <Button {...props} className={cn(``, className)}>
+    <Button
+      {...props}
+      className={cn(``, className)}
+      onClick={(e) => {
+        e.preventDefault();
+        props.onClick?.(e);
+      }}
+    >
       {children}
     </Button>
   );

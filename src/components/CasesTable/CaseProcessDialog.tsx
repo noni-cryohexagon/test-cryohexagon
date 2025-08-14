@@ -28,6 +28,8 @@ import PrintLabelStep from "./steps/LabStorageSteps/PrintLabelStep";
 import PrintLabelFinishedStep from "./steps/LabStorageSteps/PrintLabelFinishedStep";
 import SelectTagStep from "./steps/LabStorageSteps/SelectTagStep";
 import FinalConfirmationStep from "./steps/LabStorageSteps/FinalConfirmationStep";
+import Footer from "./Footer";
+import { useFooter } from "./FooterAtom";
 
 const patientDataMap = {
   name: "Name",
@@ -154,6 +156,34 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
   const { data: caseData, isLoading } = useCase(caseId);
   const [currentStep, setCurrentStep] = useState<Steps>("caseStatus");
   const [currentState, setCurrentState] = useState<any>(state);
+  const { setFooter } = useFooter();
+
+  useEffect(() => {
+    const stepConf = stepsMap[currentStep];
+    console.log("stepConf", stepConf);
+    if (stepConf.isShowFooter) {
+      setFooter({
+        stepNum: stepConf.stepNum,
+        totalSteps: stepConf.totalSteps,
+        title: stepConf.footerTitle,
+        description: stepConf.footerDescription,
+        children: (
+          // <PrimaryButton
+          //   onClick={handleNext}
+          //   disabled={stepConf.footerIsDisabled ? stepConf.footerIsDisabled(currentState) : false}
+          // >
+          //   {stepConf.footerText}
+          // </PrimaryButton>
+          <PrimaryButton
+            onClick={handleNext}
+            disabled={stepConf?.footerIsDisabled ? stepConf.footerIsDisabled(stepProps.currentState) : false}
+          >
+            {stepConf.footerText || "Next"}
+          </PrimaryButton>
+        ),
+      });
+    }
+  }, [currentStep, currentState]);
 
   const newCaseData = { ...caseData, serology: "Negative" };
 
@@ -260,10 +290,10 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
         </div>
         {/* </ScrollArea> */}
         <Footer
-          stepNum={stepConf.stepNum}
-          totalSteps={stepConf.totalSteps}
-          title={stepConf.footerTitle}
-          description={stepConf.footerDescription}
+          // stepNum={stepConf.stepNum}
+          // totalSteps={stepConf.totalSteps}
+          // title={stepConf.footerTitle}
+          // description={stepConf.footerDescription}
           className={cn(
             "mt-4 opacity-0 transition-opacity duration-800",
             stepConf?.isShowFooter && "opacity-100",
@@ -287,35 +317,6 @@ function Info({ label, value, className }: { label: string; value: string; class
     <div className={`capitalize ${className}`}>
       <div className="text-sm font-light text-indigo-200">{patientDataMap[label]}</div>
       <div className="mt-0.5 font-light text-sm">{value}</div>
-    </div>
-  );
-}
-
-function Footer({
-  stepNum,
-  totalSteps,
-  title,
-  description,
-  children,
-  className,
-}: {
-  stepNum: number;
-  totalSteps: number;
-  title: string;
-  description: string;
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <div className={`bg-white px-14 py-6 flex items-center justify-between rounded-2xl ${className}`}>
-      <div className="flex items-center">
-        <DialogText className="mr-4 text-2xl font-light text-indigo-200">
-          <span className="text-black">{stepNum}</span>/{totalSteps}
-        </DialogText>
-        <DialogText className="text-lg font-light ">{title}</DialogText>
-        <DialogText className="ml-5 font-light text-lg text-[#807E7E]">{description}</DialogText>
-      </div>
-      <div className="flex items-center">{children}</div>
     </div>
   );
 }

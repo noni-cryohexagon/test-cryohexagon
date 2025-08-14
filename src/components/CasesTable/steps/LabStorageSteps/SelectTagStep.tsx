@@ -6,6 +6,8 @@ import StepWrapper from "../../common/StepWrapper";
 import CaneDisplay from "../../common/CaneDisplay";
 
 import TagSelector from "../../common/TagSelector";
+import { useFooter } from "../../FooterAtom";
+import PrimaryButton from "../../common/PrimaryButton";
 
 const tagOptions = [
   { id: "1", color: "#6CD671", value: "Red" },
@@ -17,6 +19,12 @@ const tagOptions = [
 ];
 
 export default function SelectTagStep({ currentState, currentStep }: { currentStep: Steps }) {
+  const { setFooter } = useFooter();
+
+  const onSelectTag = (tag: { id: string; color: string; value: string }) => {
+    setFooter((prev) => ({ ...prev, title: "Write the tag number." }));
+  };
+
   return (
     <StepWrapper isShow={currentStep === "selectTagStep"}>
       {currentState.newCanes.map((cane) => (
@@ -26,7 +34,7 @@ export default function SelectTagStep({ currentState, currentStep }: { currentSt
       <div className="my-6 border-b border-[#807E7E] my-4" />
 
       <div className="flex justify-center flex-reverse">
-        <TagSelector options={tagOptions} />
+        <TagSelector options={tagOptions} onChange={onSelectTag} />
       </div>
     </StepWrapper>
   );
