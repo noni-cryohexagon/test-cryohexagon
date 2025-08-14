@@ -21,12 +21,12 @@ export default function SampleBadge({
 
   if (type === "sperm") {
     style.backgroundColor = "#E9F9FF";
-    style.borderColor = "##A8E8FF";
+    style.borderColor = "#A8E8FF";
   }
 
   const typeLabel = type ? type + "s" : null;
   return (
-    <Badge variant="outline" className={cn("rounded-full px-2.5 py-1 text-sm font-light capitalize")} style={style}>
+    <Badge variant="outline" className={cn("rounded-full w-6 h-6 text-sm font-light capitalize")} style={style}>
       {sample} {sample ? null : typeLabel}
       {/* <span className={className}>🥚</span> {sample} {type} */}
     </Badge>

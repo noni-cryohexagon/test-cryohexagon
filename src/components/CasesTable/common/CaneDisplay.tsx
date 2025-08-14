@@ -21,8 +21,8 @@ export default function CaneDisplay({ cane }: { cane: Cane }) {
         />
       </div>
 
-      <div className="flex-1 text-sm mr-3">
-        Cane <span className="font-medium text-[var(--primary)]">NEW</span>
+      <div className="flex text-sm mr-3">
+        Cane <span className="ml-2 font-medium text-[var(--primary)]">NEW</span>
       </div>
       <div className="w-6 border-b " />
       <ArrayDisplay

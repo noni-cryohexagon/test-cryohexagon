@@ -6,6 +6,7 @@ import CtaButton from "../common/CtaButton";
 import { Steps } from "../CaseProcessDialog";
 import StepWrapper from "../common/StepWrapper";
 import { Patient } from "../CasesTable";
+import VerticalTimeIndicator from "../common/VerticalTimeIndicator";
 
 export default function CaseStatusStep({
   caseData,
@@ -25,7 +26,7 @@ export default function CaseStatusStep({
 
   return (
     <StepWrapper isShow={currentStep === "caseStatus"}>
-      {/* <VerticalTimeIndicator className="w-30 " height={100} hours={1} minutes={50} /> */}
+      <VerticalTimeIndicator className="w-30 " height={100} minutes={30} />
       <div className="ml-4">
         <section className="space-y-3">
           <DialogText>Prepare for storage:</DialogText>
@@ -50,7 +51,7 @@ export default function CaseStatusStep({
           <DialogText>Stored:</DialogText>
           <LineWrapper>
             <div className="flex flex-wrap items-center gap-3 text-sm">
-              <Badge type={type} number={3} text="Oocytes" />
+              <Badge type={type} number={3} text="Straws" isRounded={false} />
               <Badge type={type} number={8} text="Embryos" />
               <span className="text-muted-foreground">Cane 9393103</span>
             </div>

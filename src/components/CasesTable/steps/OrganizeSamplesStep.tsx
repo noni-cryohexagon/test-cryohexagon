@@ -37,6 +37,7 @@ export default function OrganizeSamplesStep({
         {
           id: prevState.newStraws.length + 1,
           samples: prevState.samples.filter((sample) => selectedSamples.includes(sample.id)),
+          isApproved: false,
         },
       ],
     }));

@@ -80,6 +80,10 @@ const stepsMap = {
     stepNum: 1,
     totalSteps: 5,
     footerText: "Confirm",
+    footerIsDisabled: (currentState) => {
+      console.log("currentState.samples", currentState.newStraws);
+      return !currentState.newStraws.reduce((acc, straw) => straw.isApproved && acc, true);
+    },
   },
   printLabelStep: {
     nextStep: "selectTagStep",
@@ -209,12 +213,12 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
                 )}
                 <div className="mt-1">
                   <div className="flex items-center">
-                    <div className="w-25 text-xs text-indigo-200">Oocyte source</div>
-                    <div className="">Patient</div>
+                    <div className="w-27 text-sm text-indigo-200">Oocyte source</div>
+                    <div className="font-light">Patient</div>
                   </div>
                   <div className="flex items-center">
-                    <div className="w-25 text-xs text-indigo-200">Sperm source</div>
-                    <div className="">Partner</div>
+                    <div className="w-27 text-sm text-indigo-200">Sperm source</div>
+                    <div className="font-light">Partner</div>
                   </div>
                 </div>
               </div>
@@ -237,10 +241,10 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
         </div>
         {/* </ScrollArea> */}
         <Footer
-          stepNum={1}
-          totalSteps={2}
-          title="Organize samples in straws."
-          description="You can drag & drop samples between straws."
+          stepNum={stepConf.stepNum}
+          totalSteps={stepConf.totalSteps}
+          title={stepConf.footerTitle}
+          description={stepConf.footerDescription}
           className={cn(
             "mt-4 opacity-0 transition-opacity duration-800",
             stepConf?.isShowFooter && "opacity-100",
@@ -284,13 +288,13 @@ function Footer({
   className?: string;
 }) {
   return (
-    <div className={`bg-white px-14 py-8 flex items-center justify-between rounded-2xl ${className}`}>
+    <div className={`bg-white px-14 py-6 flex items-center justify-between rounded-2xl ${className}`}>
       <div className="flex items-center">
         <DialogText className="mr-4 text-2xl font-light text-indigo-200">
           <span className="text-black">{stepNum}</span>/{totalSteps}
         </DialogText>
-        <DialogText className="text-sm font-light ">{title}</DialogText>
-        <DialogText className="ml-5 font-light text-sm text-[#807E7E]">{description}</DialogText>
+        <DialogText className="text-lg font-light ">{title}</DialogText>
+        <DialogText className="ml-5 font-light text-lg text-[#807E7E]">{description}</DialogText>
       </div>
       <div className="flex items-center">{children}</div>
     </div>

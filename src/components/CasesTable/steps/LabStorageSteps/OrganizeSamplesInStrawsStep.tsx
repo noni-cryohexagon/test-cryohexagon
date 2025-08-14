@@ -21,7 +21,13 @@ const canes: Cane[] = [
   },
 ];
 
-export default function OrganizeSamplesInStrawsStep({ currentState, currentStep }: { currentStep: Steps }) {
+export default function OrganizeSamplesInStrawsStep({
+  currentState,
+  setCurrentState,
+  currentStep,
+}: {
+  currentStep: Steps;
+}) {
   return (
     <StepWrapper isShow={currentStep === "organizeSamplesInStrawsStep"}>
       {canes.map((cane) => (
@@ -33,13 +39,16 @@ export default function OrganizeSamplesInStrawsStep({ currentState, currentStep 
       {currentState.newStraws.map((straw) => (
         <RowWrapper key={straw.id}>
           <div className="w-full flex items-center justify-between">
-            <StrawDisplay straw={straw} />
+            <StrawDisplay straw={straw} hideClose />
 
             <Checkbox
               className="ml-4 border-black"
               checked={straw.isSelected}
               onCheckedChange={(checked) => {
-                // Handle checkbox change
+                setCurrentState((prevState) => ({
+                  ...prevState,
+                  newStraws: prevState.newStraws.map((s) => (s.id === straw.id ? { ...s, isApproved: checked } : s)),
+                }));
               }}
             />
           </div>

@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { Straw } from "../CaseProcessDialog";
 import SampleStatusBadge from "./SampleStatusBadge";
 
-export default function StrawDisplay({ straw }: { cane: Straw }) {
+export default function StrawDisplay({ straw, hideClose }: { cane: Straw; hideClose?: boolean }) {
   return (
     <div className="flex items-center">
       <div className="mr-4 px-4 py-1 bg-[#FFD46E]  rounded-xs text-sm">Straw #{straw.id}</div>
@@ -16,7 +16,7 @@ export default function StrawDisplay({ straw }: { cane: Straw }) {
               id={sample.id}
               stage={sample.stage}
               type={sample.type}
-              isShowClose
+              isShowClose={!hideClose}
               isSelected={false}
               isRounded={true}
               onClick={() => {}}
