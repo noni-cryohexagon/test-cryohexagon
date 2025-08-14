@@ -27,6 +27,7 @@ import OrganizeSamplesInStrawsStep from "./steps/LabStorageSteps/OrganizeSamples
 import PrintLabelStep from "./steps/LabStorageSteps/PrintLabelStep";
 import PrintLabelFinishedStep from "./steps/LabStorageSteps/PrintLabelFinishedStep";
 import SelectTagStep from "./steps/LabStorageSteps/SelectTagStep";
+import FinalConfirmationStep from "./steps/LabStorageSteps/FinalConfirmationStep";
 
 const patientDataMap = {
   name: "Name",
@@ -45,7 +46,8 @@ export type Steps =
   | "organizeSamplesInStrawsStep"
   | "printLabelStep"
   | "printLabelFinishedStep"
-  | "selectTagStep";
+  | "selectTagStep"
+  | "finalConfirmationStep";
 
 const stepsMap = {
   caseStatus: {
@@ -252,6 +254,7 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
               <PrintLabelStep {...stepProps} />
               <PrintLabelFinishedStep {...stepProps} />
               <SelectTagStep {...stepProps} />
+              <FinalConfirmationStep {...stepProps} />
             </div>
           )}
         </div>

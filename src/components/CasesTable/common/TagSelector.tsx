@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import "@fontsource/playpen-sans"; // Import Playpen Sans font
 
 type TagOption = {
   id: string;
@@ -24,19 +25,25 @@ export default function TagSelector({ className, options = [], defaultSelected, 
     }
   };
 
+  // Define a CSS class for the Playpen Sans font
+  const playpenSansClass = "font-['Playpen_Sans']";
+
   return (
     <div className={cn("flex gap-4", className)}>
       {options.map((tag) => (
         <div
           key={tag.id}
-          className="relative shadow-sm rounded-md cursor-pointer hover:opacity-90 transition-all"
+          className="relative pb-15 rounded-xl cursor-pointer hover:opacity-90 transition-all  shadow-[0px_6px_17px_rgba(0,0,0,0.2)]"
           onClick={() => handleTagSelect(tag.id)}
         >
           <div
-            className={cn("w-24 h-24 rounded-md flex items-center justify-center text-2xl font-bold")}
+            className={cn(
+              "m-2 w-44 h-44 rounded-md flex items-center justify-center text-2xl font-bold",
+              playpenSansClass,
+            )}
             style={{ backgroundColor: tag.color }}
           >
-            {tag.value}
+            {selectedTag === tag.id ? 12 : null}
           </div>
           <div className="absolute bottom-4 left-0 right-0 flex justify-center">
             <div
