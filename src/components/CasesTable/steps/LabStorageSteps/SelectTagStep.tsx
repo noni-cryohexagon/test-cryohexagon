@@ -8,9 +8,6 @@ import RowWrapper from "../../common/RowWrapper";
 import CaneDisplay from "../../common/CaneDisplay";
 
 import { Cane } from "../../CaseProcessDialog";
-import StrawDisplay from "../../common/StrawDisplay";
-import { Checkbox } from "@/components/ui/checkbox";
-import PrinterSvg from "../../common/PrinterSvg";
 import TagSelector from "../../common/TagSelector";
 
 const canes: Cane[] = [

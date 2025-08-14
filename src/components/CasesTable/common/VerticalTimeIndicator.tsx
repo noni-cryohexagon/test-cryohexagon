@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 
 interface VerticalTimeIndicatorProps {
   height: number;
-  hours: number;
+  hours?: number;
   minutes: number;
   className?: string;
 }
