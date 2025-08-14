@@ -4,8 +4,6 @@ import DialogText from "../common/DialogText";
 import { Steps } from "../CaseProcessDialog";
 import StepWrapper from "../common/StepWrapper";
 import RowWrapper from "../common/RowWrapper";
-import SampleCountBadge from "../common/SampleCountBadge";
-import ArrayDisplay from "../common/ArrayDisplay";
 import CaneDisplay from "../common/CaneDisplay";
 
 const canes = [

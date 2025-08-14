@@ -24,6 +24,8 @@ import AllocateCanesStep from "./steps/AllocateCanesStep";
 import { cn } from "@/lib/utils";
 import DialogText from "./common/DialogText";
 import OrganizeSamplesInStrawsStep from "./steps/LabStorageSteps/OrganizeSamplesInStrawsStep";
+import PrintLabelStep from "./steps/LabStorageSteps/PrintLabelStep";
+import SelectTagStep from "./steps/LabStorageSteps/SelectTagStep";
 
 const patientDataMap = {
   name: "Name",
@@ -35,7 +37,13 @@ const patientDataMap = {
   serology: "Serology",
 };
 
-export type Steps = "caseStatus" | "organizeSamples" | "allocateCanesStep" | "organizeSamplesInStrawsStep";
+export type Steps =
+  | "caseStatus"
+  | "organizeSamples"
+  | "allocateCanesStep"
+  | "organizeSamplesInStrawsStep"
+  | "printLabelStep"
+  | "selectTagStep";
 
 const stepsMap = {
   caseStatus: {
@@ -55,7 +63,19 @@ const stepsMap = {
     isShowFooter: true,
     footerText: "Confirm",
   },
+
+  // Lab worker step
   organizeSamplesInStrawsStep: {
+    nextStep: "printLabelStep",
+    isShowFooter: true,
+    footerText: "Confirm",
+  },
+  printLabelStep: {
+    nextStep: "selectTagStep",
+    isShowFooter: true,
+    footerText: "Confirm",
+  },
+  selectTagStep: {
     nextStep: null,
     isShowFooter: true,
     footerText: "Confirm",
@@ -193,6 +213,8 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
               <OrganizeSamplesStep {...stepProps} />
               <AllocateCanesStep {...stepProps} />
               <OrganizeSamplesInStrawsStep {...stepProps} />
+              <PrintLabelStep {...stepProps} />
+              <SelectTagStep {...stepProps} />
             </div>
           )}
         </div>
