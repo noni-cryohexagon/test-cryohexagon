@@ -20,8 +20,8 @@ export default function CaseStatusStep({
   const type = caseData.embryos > 0 ? "embryos" : "oocytes";
   const count = caseData.embryos > 0 ? caseData.embryos : caseData.oocytes;
 
-  const canOrganize = currentState.newCanes.length === 0;
-  const canPrepare = currentState.newCanes.length > 0;
+  const canOrganize = currentState.newStraws.length === 0;
+  const canPrepare = currentState.newStraws.length > 0;
 
   return (
     <StepWrapper isShow={currentStep === "caseStatus"}>
@@ -38,7 +38,9 @@ export default function CaseStatusStep({
               </div>
               <div className=" opacity-0 group-hover:opacity-100">
                 {canOrganize && <CtaButton onClick={() => setNextStep("organizeSamples")}>Organize samples</CtaButton>}
-                {canPrepare && <CtaButton onClick={() => setNextStep("allocateCanesStep")}>Prepare</CtaButton>}
+                {canPrepare && (
+                  <CtaButton onClick={() => setNextStep("organizeSamplesInStrawsStep")}>Prepare</CtaButton>
+                )}
               </div>
             </div>
           </LineWrapper>

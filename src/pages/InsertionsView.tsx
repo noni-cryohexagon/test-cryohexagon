@@ -38,7 +38,6 @@ export default function InsertionsView() {
       .sort((a, b) => (b.oocytes > 0 ? 1 : 0) - (a.oocytes > 0 ? 1 : 0))
       .sort((a, b) => new Date(a.timer) - new Date(b.timer));
     // .sort((a, b) => b.oocytes - a.oocytes);
-    console.log("🚀 ~ InsertionsView ~ sortedCases:", sortedCases);
 
     return [
       {

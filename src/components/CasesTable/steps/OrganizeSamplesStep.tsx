@@ -6,11 +6,7 @@ import StepWrapper from "../common/StepWrapper";
 import PrimaryButton from "../common/PrimaryButton";
 import RowWrapper from "../common/RowWrapper";
 import SampleStatusBadge from "../common/SampleStatusBadge";
-
-type Straw = {
-  id: string;
-  sampleIds: string[];
-};
+import StrawDisplay from "../common/StrawDisplay";
 
 export default function OrganizeSamplesStep({
   currentStep,
@@ -84,23 +80,7 @@ export default function OrganizeSamplesStep({
       <DialogText className="mt-10 mb-2">Straws</DialogText>
       {currentState.newStraws.map((straw) => (
         <RowWrapper key={straw.id}>
-          <div className="mr-4 px-4 py-1 bg-[#FFD46E]  rounded-xs text-sm">Straw #{straw.id}</div>
-
-          {straw.samples.map((sample) => {
-            if (!sample) return null;
-            return (
-              <div className="mr-3" key={sample.id}>
-                <SampleStatusBadge
-                  id={sample.id}
-                  stage={sample.stage}
-                  type={sample.type}
-                  isShowClose
-                  isSelected={false}
-                  onClick={() => {}}
-                />
-              </div>
-            );
-          })}
+          <StrawDisplay straw={straw} />
         </RowWrapper>
       ))}
     </StepWrapper>
