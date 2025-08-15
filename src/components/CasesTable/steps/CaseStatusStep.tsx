@@ -79,29 +79,33 @@ export default function CaseStatusStep({
           </div>
         </section>
 
-        {/* "Ready for storage" section - appears and moves up */}
-        <section
-          className={cn(
-            "space-y-3 relative mt-6 transition-all duration-800",
-            isAnimationStarted && "delay-1000 -translate-y-[74px]",
-            isAnimationStarted && "delay-2600 -translate-y-[126px]",
-          )}
-        >
-          <DialogText className="mb-4">Ready for storage:</DialogText>
-
-          {/* New item appears in ready section */}
-          <LineWrapper
-            className={cn("opacity-0 transition-opacity duration-800", isAnimationStarted && "delay-1800 opacity-100")}
+        {currentState.isDone && (
+          <section
+            className={cn(
+              "space-y-3 relative mt-6 transition-all duration-800",
+              isAnimationStarted && "delay-1000 -translate-y-[74px]",
+              isAnimationStarted && "delay-2600 -translate-y-[126px]",
+            )}
           >
-            <CaseStatusItem
-              caseData={caseData}
-              currentState={currentState}
-              currentStep={currentStep}
-              setNextStep={setNextStep}
-              isHovered={false}
-            />
-          </LineWrapper>
-        </section>
+            <DialogText className="mb-4">Ready for storage:</DialogText>
+
+            {/* New item appears in ready section */}
+            <LineWrapper
+              className={cn(
+                "opacity-0 transition-opacity duration-800",
+                isAnimationStarted && "delay-1800 opacity-100",
+              )}
+            >
+              <CaseStatusItem
+                caseData={caseData}
+                currentState={currentState}
+                currentStep={currentStep}
+                setNextStep={setNextStep}
+                isHovered={false}
+              />
+            </LineWrapper>
+          </section>
+        )}
 
         {/* "Stored" section - moves up with animation */}
         <section
