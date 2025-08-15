@@ -29,7 +29,7 @@ import PrintLabelFinishedStep from "./steps/LabStorageSteps/PrintLabelFinishedSt
 import SelectTagStep from "./steps/LabStorageSteps/SelectTagStep";
 import FinalConfirmationStep from "./steps/LabStorageSteps/FinalConfirmationStep";
 import Footer from "./Footer";
-import { useFooter } from "./FooterAtom";
+import { useFooter } from "./footerAtom2";
 
 const patientDataMap = {
   name: "Name",
