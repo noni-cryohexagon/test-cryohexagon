@@ -7,6 +7,7 @@ import PrimaryButton from "../common/PrimaryButton";
 import RowWrapper from "../common/RowWrapper";
 import SampleStatusBadge from "../common/SampleStatusBadge";
 import StrawDisplay from "../common/StrawDisplay";
+import { useFooter } from "../abcd";
 
 export default function OrganizeSamplesStep({
   currentStep,
@@ -18,6 +19,7 @@ export default function OrganizeSamplesStep({
   setCurrentState: (state: any) => void;
 }) {
   const [selectedSamples, setSelectedSamples] = useState<string[]>([]);
+  const { setFooter } = useFooter();
 
   const toggleSelection = (id: string) => {
     if (selectedSamples.includes(id)) {
@@ -40,6 +42,11 @@ export default function OrganizeSamplesStep({
           isApproved: false,
         },
       ],
+    }));
+    setFooter((prev) => ({
+      ...prev,
+      title: "Organize samples in straws.",
+      description: "You can drag & drop samples between straws.",
     }));
   };
 
