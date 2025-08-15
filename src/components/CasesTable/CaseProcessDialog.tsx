@@ -157,17 +157,23 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
   const { data: caseData, isLoading } = useCase(caseId);
   const [currentStep, setCurrentStep] = useState<Steps>("caseStatus");
   const [currentState, setCurrentState] = useState<any>(state);
-  const { setFooter } = useFooter();
+  const { value: footer, setFooter } = useFooter();
 
   useEffect(() => {
     const stepConf = stepsMap[currentStep];
     console.log("stepConf", stepConf);
     if (stepConf.isShowFooter) {
+      const footerBody =
+        footer.stepNum !== stepConf.stepNum
+          ? {
+              stepNum: stepConf.stepNum,
+              totalSteps: stepConf.totalSteps,
+              title: stepConf.footerTitle,
+              description: stepConf.footerDescription,
+            }
+          : footer;
       setFooter({
-        stepNum: stepConf.stepNum,
-        totalSteps: stepConf.totalSteps,
-        title: stepConf.footerTitle,
-        description: stepConf.footerDescription,
+        ...footerBody,
         children: (
           // <PrimaryButton
           //   onClick={handleNext}
@@ -184,7 +190,7 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
         ),
       });
     }
-  }, [currentStep]);
+  }, [currentStep, currentState]);
 
   const newCaseData = { ...caseData, serology: "Negative" };
 
