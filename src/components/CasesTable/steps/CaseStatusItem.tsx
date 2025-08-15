@@ -58,7 +58,7 @@ export default function CaseStatusItem({
         )}
       </div>
       <div className={cn("self-start opacity-0 ", isHovered && "opacity-100")}>
-        {canOrganize && <CtaButton onClick={() => goToStep("organizeSamples")}>Organize samples</CtaButton>}
+        {canOrganize && <CtaButton onClick={() => goToStep("organizeSamples")}>Organize straws</CtaButton>}
         {canPrepare && <CtaButton onClick={() => goToStep("organizeSamplesInStrawsStep")}>Prepare</CtaButton>}
       </div>
     </div>

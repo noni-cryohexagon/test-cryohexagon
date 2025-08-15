@@ -50,7 +50,7 @@ export default function CasesTable({ items, batches }: { items: Patient[]; batch
           <Avatar className="h-8 w-8 rounded-full">
             <img src={`/mock/${info.row.original.avatar}`} alt={info.getValue()} />
           </Avatar>
-          <span className="font-medium">{info.getValue()}</span>
+          <span className="font-light">{info.getValue()}</span>
         </div>
       ),
     }),
@@ -177,7 +177,7 @@ export default function CasesTable({ items, batches }: { items: Patient[]; batch
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header, index) => (
-                <TableHead className={`pr-6 ${index === 0 ? 'pl-15' : ''} text-gray-400 font-light`}>
+                <TableHead className={`pr-6 ${index === 0 ? "pl-15" : ""} text-gray-400 font-light`}>
                   {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                 </TableHead>
               ))}
@@ -187,17 +187,13 @@ export default function CasesTable({ items, batches }: { items: Patient[]; batch
         <TableBody className="border-t-1">
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
-                <TableRow
-                  className="cursor-pointer"
-                  key={row.id}
-                  onClick={() => setCurrentCaseId(row.original.id)}
-                >
+              <TableRow className="cursor-pointer" key={row.id} onClick={() => setCurrentCaseId(row.original.id)}>
                 {row.getVisibleCells().map((cell, index) => (
-                  <TableCell className={`py-2 pr-6 ${index === 0 ? 'pl-15' : ''} font-light`} key={cell.id}>
+                  <TableCell className={`py-2 pr-6 ${index === 0 ? "pl-15" : ""} font-light`} key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
-                </TableRow>
+              </TableRow>
             ))
           ) : (
             <TableRow>
