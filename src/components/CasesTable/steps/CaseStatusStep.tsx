@@ -106,7 +106,8 @@ export default function CaseStatusStep({
                   hasHoverEffect
                   className={cn(
                     isStartAnimation && "absolute top-0 left-0 w-full",
-                    isMoveCane && "absolute top-0 left-0 w-full top-[58px] transition-all duration-800",
+                    isMoveCane && "absolute left-0 w-full top-[58px] transition-all duration-800",
+                    // isMoveCane && "absolute top-0 left-0 w-full top-[58px] transition-all duration-800",
                   )}
                 >
                   <CaseStatusItem

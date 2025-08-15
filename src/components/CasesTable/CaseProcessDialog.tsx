@@ -71,8 +71,8 @@ const stepsMap = {
   allocateCanesStep: {
     nextStep: "caseStatus",
     isShowFooter: true,
-    footerTitle: "Organize samples in straws.",
-    footerDescription: "You can drag & drop samples between straws.",
+    footerTitle: "Confirm assigned canes.", //Organize samples in straws.",
+    footerDescription: "Or reorganize samples in straws.", //"You can drag & drop samples between straws.",
     stepNum: 2,
     totalSteps: 2,
     footerText: "Confirm",
@@ -184,7 +184,7 @@ export default function CaseProcessDialog({ caseId, isOpen, setIsOpen }: IProps)
         ),
       });
     }
-  }, [currentStep, currentState]);
+  }, [currentStep]);
 
   const newCaseData = { ...caseData, serology: "Negative" };
 
