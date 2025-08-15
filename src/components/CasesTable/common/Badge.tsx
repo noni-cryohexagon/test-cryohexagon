@@ -31,7 +31,7 @@ export default function Badge({
     <span
       style={{ borderColor: colors.borderColor }}
       className={cn(
-        "min-h-[32px] inline-flex select-none items-center gap-1 border bg-background  text-xs font-medium shadow-sm",
+        "min-h-[32px] inline-flex select-none items-center gap-1 border bg-[#f7f7ef]  text-xs font-medium shadow-sm",
         isRounded && "rounded-full",
       )}
     >
