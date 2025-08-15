@@ -6,7 +6,7 @@ import StepWrapper from "../../common/StepWrapper";
 import CaneDisplay from "../../common/CaneDisplay";
 
 import TagSelector from "../../common/TagSelector";
-import { useFooter } from "../../footerAtom2";
+import { useFooter } from "../../abcd";
 import PrimaryButton from "../../common/PrimaryButton";
 
 const tagOptions = [

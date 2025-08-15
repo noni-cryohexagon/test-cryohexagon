@@ -1,5 +1,5 @@
 import DialogText from "./common/DialogText";
-import { useFooter } from "./footerAtom2";
+import { useFooter } from "./abcd";
 
 export interface FooterProps {
   stepNum: number;
