@@ -46,7 +46,7 @@ export default function DailyView() {
 
   console.log("Admin isHide:", isHide);
   return (
-    <main className={cn("max-w-[1440px] mx-auto flex w-full mx-auto flex-col gap-4 mt-7", { hidden: isHide })}>
+    <main className={cn("w-full max-w-[1440px] mx-auto flex flex-col gap-4 mt-7", { hidden: isHide })}>
       <AppTabs tabs={adminTabs} activeTabId={activeTab} onTabChange={handleTabChange}>
         <Outlet />
       </AppTabs>

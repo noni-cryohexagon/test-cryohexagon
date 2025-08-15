@@ -94,7 +94,7 @@ export default function CasesTable({ items, batches }: { items: Patient[]; batch
       },
     }),
     columnHelper.accessor("embryos", {
-      header: "Batches",
+      header: "Canes",
       cell: (info) => {
         const { embryos, oocytes, moreCount } = info.row.original;
         const sampleType = embryos > 0 ? "embryo" : oocytes > 0 ? "oocyte" : "sperm";
@@ -172,16 +172,14 @@ export default function CasesTable({ items, batches }: { items: Patient[]; batch
 
   return (
     <div className="border-0">
-      <Table className="w-full bg-white">
+      <Table className="w-full bg-white text-base">
         <TableHeader className="[&_tr]:border-b-0">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                // <div className="mt-8" key={header.id}>
-                <TableHead className="px-6 text-gray-400 text-sm font-light">
+              {headerGroup.headers.map((header, index) => (
+                <TableHead className={`pr-6 ${index === 0 ? 'pl-15' : ''} text-gray-400 font-light`}>
                   {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                 </TableHead>
-                // </div>
               ))}
             </TableRow>
           ))}
@@ -189,13 +187,17 @@ export default function CasesTable({ items, batches }: { items: Patient[]; batch
         <TableBody className="border-t-1">
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
-              <TableRow className=" cursor-pointer" key={row.id} onClick={() => setCurrentCaseId(row.original.id)}>
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell className="py-2 px-6" key={cell.id}>
+                <TableRow
+                  className="cursor-pointer"
+                  key={row.id}
+                  onClick={() => setCurrentCaseId(row.original.id)}
+                >
+                {row.getVisibleCells().map((cell, index) => (
+                  <TableCell className={`py-2 pr-6 ${index === 0 ? 'pl-15' : ''} font-light`} key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
-              </TableRow>
+                </TableRow>
             ))
           ) : (
             <TableRow>

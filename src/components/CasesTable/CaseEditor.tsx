@@ -152,7 +152,7 @@ export default function CaseEditor({ caseId }: { caseId: string }) {
             ))}
           </div>
 
-          <div className="ml-[85px] mt-12">
+          <div className="ml-[85px] mt-12 bg-white rounded-xl p-6">
             <h3 className="font-medium mb-4">Ready for storage</h3>
             {readyEntries.map((entry) => (
               <div key={entry.id} className="mb-4">
@@ -166,7 +166,7 @@ export default function CaseEditor({ caseId }: { caseId: string }) {
             ))}
           </div>
 
-          <div className="ml-[85px] mt-12">
+          <div className="ml-[85px] mt-12 bg-white rounded-xl p-6">
             <h3 className="font-medium mb-4">Stored</h3>
             {storedEntries.map((entry) => (
               <div key={entry.id} className="mb-4">

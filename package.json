@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource/host-grotesk": "^5.2.6",
     "@fontsource/inter": "^5.2.6",
     "@fontsource/playpen-sans": "^5.2.7",
     "@hookform/resolvers": "^5.0.1",

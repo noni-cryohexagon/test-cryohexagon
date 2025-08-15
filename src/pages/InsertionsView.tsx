@@ -36,7 +36,7 @@ export default function InsertionsView() {
     const sortedCases = filteredCases
 
       .sort((a, b) => (b.oocytes > 0 ? 1 : 0) - (a.oocytes > 0 ? 1 : 0))
-      .sort((a, b) => new Date(a.timer) - new Date(b.timer));
+      .sort((a, b) => new Date(a.timer).getTime() - new Date(b.timer).getTime());
     // .sort((a, b) => b.oocytes - a.oocytes);
 
     return [
@@ -71,7 +71,7 @@ export default function InsertionsView() {
 
   return (
     <main>
-      <div className="ml-2">
+      <div className="ml-0">
         <div className="flex items-center mb-4">
           <img src="/magnifying-glass.png" alt="Search" className="inline-block w-5 h-5 mr-0 align-middle" />
           <Input

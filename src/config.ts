@@ -17,5 +17,5 @@ if (!import.meta.env.VITE_SUPABASE_URL) {
 console.log(import.meta.env.VITE_SUPABASE_ANON_KEY);
 console.log(import.meta.env.VITE_SUPABASE_URL);
 export const SUPABASE_ANON_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxxYmx4YnBydXRrdHF5dndmZmV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ1NzQ4NjYsImV4cCI6MjA3MDE1MDg2Nn0.E5LIbhJ9qA8AtrPXIE2EAGCrHut6whKD1kwIXuL0rEM";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdodnhwc3JkbHd6aHBvYmx2bGlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMxNzgyMzQsImV4cCI6MjA2ODc1NDIzNH0.A8raTVOW4ScyxbzJqlL9C2D2OlI6WTAvOXRZi3Ty4qE";
 export const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;

@@ -18,17 +18,17 @@ const style = {
 
 export default function AppHeader({ children }: { children?: React.ReactNode }) {
   return (
-    <header className="flex h-16 shrink-0 items-center gap-2  px-4">
+    <header className="flex pt-6 pb-15 py-0 shrink-0 items-center gap-2">
       {children}
-      <div className="max-w-[1440px] mx-auto flex-1 ">
+      <div className="max-w-[1440px] mx-auto flex-1">
         <div
-          className="mx-10 flex items-center justify-between "
-          style={{ backgroundColor: "#dddddd", padding: "8px 20px", borderRadius: "22px" }}
+          className="flex items-center justify-between "
+          style={{ backgroundColor: "#ECECE4", padding: "8px 20px", borderRadius: "22px" }}
         >
-          <div className="font-bold  text-lg flex items-center gap-2">
+            <div className="font-bold text-lg flex items-center gap-2" style={{ fontFamily: "Host Grotesk" }}>
             {/* <img src={HexaConfIcon} alt="HexaConf Logo" className="" style={style} /> */}
             cryohexagon
-          </div>
+            </div>
 
           <div className="flex items-center gap-2">
             <img src={orgLogo} alt="Logo" className="" style={style} />

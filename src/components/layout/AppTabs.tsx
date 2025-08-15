@@ -19,28 +19,34 @@ export default function AppsTabs({ tabs, activeTabId, onTabChange, children }: I
   const currentTab = activeTabId || defaultTab;
   //
   return (
-    <div className="mx-10">
-      <Tabs className="" value={currentTab} onValueChange={onTabChange}>
+    <div>
+      <Tabs value={currentTab} onValueChange={onTabChange}>
         <div className="mb-4 relative">
-          <TabsList className="p-1 rounded-lg bg-transparent ">
+          <TabsList className="bg-transparent p-0">
             {tabs.map((tab) => (
-              <TabsTrigger
+                <TabsTrigger
                 key={tab.id}
                 value={tab.id}
-                className="flex-1  py-5 px-6  data-[state=active]:border-b-4 data-[state=active]:border-b-black  data-[state=active]:text-primary data-[state=active]:font-medium text-lg font-light  rounded-none cursor-pointer text-gray-500 hover:text-black "
-              >
+                className={`
+                  flex-1 py-5 px-4 data-[state=active]:border-b-5 data-[state=active]:border-b-black 
+                  data-[state=active]:text-black data-[state=active]:font-medium text-lg font-light
+                  rounded-none cursor-pointer text-gray-500 hover:text-black relative
+                `}
+                >
                 {tab.title}
                 {tab.badge && (
-                  <span
-                    className={`px-[6px] py-[2px] ml-2 items-center justify-center rounded-full  text-xs font-medium text-white transform -translate-y-1/2 -translate-x-1/2 ${currentTab === tab.id ? "bg-red-400" : "bg-red-300"}`}
-                  >
-                    {tab.badge}
+                  <span className={`
+                    px-[6px] py-[2px] ml-2 items-center justify-center rounded-full  text-xs
+                    font-medium text-white transform -translate-y-1/2 -translate-x-1/2
+                    ${currentTab === tab.id ? "bg-red-400" : "bg-red-300"}
+                  `}>
+                  {tab.badge}
                   </span>
                 )}
-              </TabsTrigger>
+                </TabsTrigger>
             ))}
           </TabsList>
-          <div className="w-65 border-b-1 absolute" style={{ bottom: -5 }} />
+          <div className="w-full border-b-1 border-[#807E7E] absolute left-0 right-0" style={{ bottom: -5 }} />
         </div>
 
         {tabs.map((tab) => (
