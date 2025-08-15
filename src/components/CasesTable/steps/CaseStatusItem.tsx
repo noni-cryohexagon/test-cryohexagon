@@ -20,6 +20,7 @@ export default function CaseStatusItem({
   isHovered,
 }: {
   caseData: Patient;
+  currentState: any;
   currentStep: Steps;
   setNextStep: (step: Steps) => void;
   isHovered: boolean;
