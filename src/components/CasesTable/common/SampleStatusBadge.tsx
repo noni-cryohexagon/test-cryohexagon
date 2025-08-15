@@ -37,7 +37,7 @@ export default function SampleStatusBadge({
         borderColor: colors.borderColor,
       }}
       className={cn(
-        "min-h-[32px] inline-flex select-none items-center gap-1 border bg-background  text-xs font-medium shadow-sm",
+        "min-h-[32px] inline-flex select-none items-center gap-1 border  text-xs font-medium shadow-sm",
         "cursor-pointer",
         isRounded && "rounded-full",
       )}

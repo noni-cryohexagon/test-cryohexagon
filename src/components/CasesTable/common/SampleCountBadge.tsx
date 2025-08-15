@@ -32,7 +32,7 @@ export default function SampleCountBadge({
         borderColor: colors.borderColor,
       }}
       className={cn(
-        "min-h-[32px] inline-flex select-none items-center gap-1 border bg-background  text-xs font-medium shadow-sm",
+        "min-h-[32px] inline-flex select-none items-center gap-1 border   text-xs font-medium shadow-sm",
         onClick ? "" : "cursor-pointer pointer-events-none",
         isRounded && "rounded-full",
       )}
